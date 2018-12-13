@@ -9,7 +9,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      currentUser:null
+      currentUser:""
     }
   }
 
@@ -23,7 +23,10 @@ class App extends Component {
           "Authentication" : `Bearer ${token}`
         }
       }).then(resp => resp.json())
-      .then(console.log)
+      .then(data => {
+
+        this.setState({currentUser: data.user.username})
+      })
     }
   }
 

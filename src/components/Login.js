@@ -12,7 +12,8 @@ class Login extends Component {
     this.setState({[name]:value})
   }
 
-  handleLoginSubmit = () =>{
+  handleLoginSubmit = (e) =>{
+    e.preventDefault()
     console.log('attempting to login')
     fetch('http://localhost:3000/login', {
       method:"POST",
@@ -25,14 +26,17 @@ class Login extends Component {
         password: this.state.password
       })
     }).then(resp => resp.json())
-    .then(console.log)
+    .then(data => {
+      console.log('still attempting to login', data)
+      this.updateCurrentUser(data.user.username)
+    })
   }
 
 
   render(){
     return(
       <Fragment>
-        <form>
+        <form  onSubmit={(e) => this.handleLoginSubmit(e)} >
           <FormGroup
              controlId="formBasicText"
            >
