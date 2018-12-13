@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Profile = () => {
+const Profile = (props) => {
   return(
     <div>
-    OMG you reached Profile!!
+    {props.currentUser}
     </div>
   )
 }

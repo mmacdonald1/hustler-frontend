@@ -1,11 +1,10 @@
 import React from 'react'
 import Login from '../components/Login'
 
-const HomeContainer = () => {
+const HomeContainer = (props) => {
   return(
     <div>
-      HomeContainer
-      <Login />
+      <Login updateCurrentUser={props.updateCurrentUser}/>
     </div>
   )
 }
