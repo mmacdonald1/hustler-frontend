@@ -22,16 +22,17 @@ class App extends Component {
           "Authentication" : `Bearer ${token}`
         }
       }).then(resp => resp.json())
-      .then(data => {
-        this.setState({
-          currentUser: data.user
-        })
-      })
+      .then(console.log)
     }
   }
 
   updateCurrentUser= (user) =>{
     this.setState({currentUser:user})
+  }
+
+  logout = () => {
+    localStorage.removeItem('token')
+    this.setState({currentUser:null})
   }
 
   render() {
