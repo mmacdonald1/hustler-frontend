@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink, withRouter} from "react-router-dom"
+import {withRouter} from "react-router-dom"
 import {Navbar, Nav, NavItem} from 'react-bootstrap'
 
 const MainNav = (props) =>{

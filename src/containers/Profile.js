@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react'
 import {Redirect, withRouter} from 'react-router-dom'
+import DeckCard from '../components/DeckCard'
+import UserJumbotron from '../components/UserJumbotron'
 
 
 const Profile = (props) => {
@@ -9,7 +11,8 @@ const Profile = (props) => {
     <Fragment>
       { currentUser ? (
         <div>
-          {props.currentUser.username}
+          <UserJumbotron username={props.currentUser.username} />
+          {props.currentUserDecks.map(deck => <DeckCard key={deck.id} name={deck.name} />)}
         </div>
         ):(
           <Redirect to='/login'/>
