@@ -28,7 +28,12 @@ class Login extends Component {
     }).then(resp => resp.json())
     .then(data => {
       console.log('still attempting to login', data)
-      this.props.updateCurrentUser(data.user)
+      if(data.error){
+        alert('incorrect username or password')
+      }else{
+        localStorage.setItem('token', data.token)
+        this.props.updateCurrentUser(data.user)
+      }
     })
   }
 

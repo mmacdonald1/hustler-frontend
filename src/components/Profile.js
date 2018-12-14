@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {Fragment} from 'react'
+import {Redirect, withRouter} from 'react-router-dom'
+
 
 const Profile = (props) => {
+  let {currentUser} = props
   console.log(props)
   return(
-    <div>
-      {props.currentUser.username}
-    </div>
+    <Fragment>
+      { currentUser ? (
+        <div>
+          {props.currentUser.username}
+        </div>
+        ):(
+          <Redirect to='/login'/>
+        )
+      }
+    </Fragment>
   )
 }
 
-export default Profile
+export default withRouter(Profile)
