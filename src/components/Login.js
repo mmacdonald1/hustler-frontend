@@ -28,7 +28,7 @@ class Login extends Component {
     }).then(resp => resp.json())
     .then(data => {
       console.log('still attempting to login', data)
-      this.updateCurrentUser(data.user.username)
+      this.props.updateCurrentUser(data.user)
     })
   }
 

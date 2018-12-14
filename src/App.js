@@ -9,7 +9,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      currentUser:""
+      currentUser:null
     }
   }
 
@@ -25,7 +25,7 @@ class App extends Component {
       }).then(resp => resp.json())
       .then(data => {
 
-        this.setState({currentUser: data.user.username})
+        this.setState({currentUser: data.user})
       })
     }
   }
