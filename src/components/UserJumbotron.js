@@ -9,7 +9,7 @@ const UserJumbotron = (props) => {
         Welcome to Hustler.
       </p>
       <p>
-        <Button bsStyle="primary">Create a Deck</Button>
+        <Button bsStyle="primary" onClick={props.handleShow}>Create a Deck</Button>
       </p>
     </Jumbotron>
   )
