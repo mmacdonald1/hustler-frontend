@@ -32,7 +32,7 @@ render(){
 
           {currentUserDecks.map(deck => <DeckCard key={deck.id} name={deck.name} />)}
 
-          <CreateDeckModal show={this.state.show} handleClose={this.handleClose} />
+          <CreateDeckModal show={this.state.show} handleClose={this.handleClose} id={currentUser.id}/>
 
         </div>
         ):(

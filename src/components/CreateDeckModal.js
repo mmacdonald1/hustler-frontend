@@ -25,6 +25,7 @@ class CreateDeckModal extends Component{
       },
       body: JSON.stringify({
         name: this.state.name,
+        user_id: this.props.id
       })
     }).then(resp => resp.json())
     .then(data => {
