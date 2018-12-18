@@ -33,6 +33,7 @@ class Signup extends Component {
       if(data.error){
         alert(data.error)
       }else{
+        console.log(data)
         localStorage.setItem('token', data.token)
         this.props.updateCurrentUser(data.user)
       }

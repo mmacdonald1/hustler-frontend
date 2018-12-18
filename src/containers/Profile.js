@@ -29,8 +29,7 @@ render(){
         <div>
 
           <UserJumbotron username={currentUser.username} handleShow={this.handleShow}/>
-
-          {currentUserDecks.map(deck => <DeckCard key={deck.id} name={deck.name} />)}
+          {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} name={deck.name} />) : null}
 
           <CreateDeckModal show={this.state.show} handleClose={this.handleClose} id={currentUser.id}/>
 
