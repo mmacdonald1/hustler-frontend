@@ -19,7 +19,9 @@ class App extends Component {
   componentDidMount(){
     let token = localStorage.getItem('token')
     //see if there is a token send it to the backend
-    if(!!token){
+    console.log("component did mount")
+    if(token){
+      console.log("in if")
       fetch('http://localhost:3000/profile',{
         method:"GET",
         headers:{
@@ -28,18 +30,23 @@ class App extends Component {
       }).then(resp => resp.json())
       .then(data => {
         console.log(data)
-        this.setState({currentUser: data.user, currentUserDecks:data.decks})
+        this.setState({currentUser: data.user})
+        this.setState({currentUserDecks: data.decks})
       })
     }
   }
 
-  updateCurrentUser= (user) =>{
-    this.setState({currentUser:user})
+  updateCurrentUser= (user, decks) =>{
+    this.setState({currentUser:user, currentUserDecks:decks})
   }
 
   logout = () => {
     localStorage.removeItem('token')
     this.setState({currentUser:null})
+  }
+
+  updateCurrentDecks = (deck) => {
+    console.log("the deck is here!", deck)
   }
 
   render() {

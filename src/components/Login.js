@@ -32,7 +32,7 @@ class Login extends Component {
         alert('incorrect username or password')
       }else{
         localStorage.setItem('token', data.token)
-        this.props.updateCurrentUser(data.user)
+        this.props.updateCurrentUser(data.user, data.decks)
       }
     })
   }

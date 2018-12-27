@@ -9,7 +9,8 @@ class Profile extends Component{
   constructor() {
       super();
       this.state = {
-        show: false
+        show: false,
+        editDeck:null
       };
   }
 
@@ -20,6 +21,9 @@ class Profile extends Component{
     handleShow = () => {
       this.setState({ show: true });
     }
+    handleEditForm = (deck) => {
+      this.setState({ show: true, editDeck: deck });
+    }
 
 render(){
   let {currentUser, currentUserDecks} = this.props
@@ -29,9 +33,9 @@ render(){
         <div>
 
           <UserJumbotron username={currentUser.username} handleShow={this.handleShow}/>
-          {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} name={deck.name} />) : null}
+          {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} />) : null}
 
-          <CreateDeckModal show={this.state.show} handleClose={this.handleClose} id={currentUser.id}/>
+          <CreateDeckModal show={this.state.show} editDeck={this.state.editDeck} handleClose={this.handleClose} id={currentUser.id}/>
 
         </div>
         ):(
