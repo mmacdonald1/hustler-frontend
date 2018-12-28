@@ -3,26 +3,20 @@ import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootst
 import {Link} from 'react-router-dom'
 
 
-class DeckCard extends Component{
+class CardCard extends Component{
   handleEditClick=()=>{
-    console.log('You are trying to edit a deck')
-    this.props.handleEditForm(this.props.deck)
+    console.log('You are trying to edit a card')
   }
   handleDeleteClick=()=>{
-    let token = localStorage.getItem('token')
-    fetch(`http://localhost:3000/decks/${this.props.deck.id}`,{
-      method:"DELETE",
-      headers:{
-        "Authentication" : `Bearer ${token}`
-      }
-    }).then(resp => resp.json())
-    .then(data => this.props.deleteDeck(data))
+    console.log('You are trying to delete a card')
   }
   render(){
+    console.log(this.props)
     return(
       <Panel>
         <Panel.Body>
-          <Link to={`/decks/${this.props.deck.id}`}>{this.props.deck.name}</Link>
+        <h3>{this.props.card.title}</h3>
+        <p>{this.props.card.content}</p>
         </Panel.Body>
         <ButtonToolbar>
           <ButtonGroup>
@@ -39,4 +33,4 @@ class DeckCard extends Component{
   }
 }
 
-export default DeckCard
+export default CardCard

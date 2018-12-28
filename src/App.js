@@ -4,6 +4,7 @@ import MainNav from './components/MainNav'
 import NotFound from './components/NotFound'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import DeckPage from './containers/DeckPage'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 
@@ -76,6 +77,16 @@ class App extends Component {
                 <Signup updateCurrentUser={this.updateCurrentUser} />
               }
               />
+              <Route exact path='/decks/:id' render={(props)=>{
+                  if(this.state.currentUser){
+                    let deckId = parseInt(props.match.params.id)
+                    let deck = this.state.currentUserDecks.find(i => i.id === deckId)
+                    return <DeckPage deck={deck}/>
+                  }else{
+                    return <Redirect to='/profile'/>
+                  }
+                }
+              }/>
               <Route exact path="/profile" render={()=> <Profile currentUser={this.state.currentUser} currentUserDecks={this.state.currentUserDecks} updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} createDeck={this.createDeck}/>} />
               <Route exact path="/login" render={()=>this.state.currentUser?
                 <Redirect to='/profile'/> :
