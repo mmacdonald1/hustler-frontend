@@ -35,7 +35,7 @@ class CreateDeckModal extends Component{
       })
     }).then(resp => resp.json())
     .then(data => {
-    console.log(data)
+    this.props.createDeck(data.deck)
     this.props.handleClose()
 
     })
@@ -55,7 +55,10 @@ class CreateDeckModal extends Component{
         user_id: this.props.id
       })
     }).then(resp => resp.json())
-    .then(console.log)
+    .then(data =>{
+      this.props.updateCurrentDecks(data.deck)
+      this.props.handleClose()
+    })
   }
 
   render(){

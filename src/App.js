@@ -44,9 +44,25 @@ class App extends Component {
     localStorage.removeItem('token')
     this.setState({currentUser:null})
   }
+  createDeck = (deck) => {
+    console.log("the deck is here!", deck)
+    let copyCreateDeck = this.state.currentUserDecks
+    copyCreateDeck.push(deck)
+    console.log("did the thing", copyCreateDeck)
+  }
 
   updateCurrentDecks = (deck) => {
-    console.log("the deck is here!", deck)
+    let index = this.state.currentUserDecks.findIndex(i => i.id === deck.id)
+    let copyDeck = this.state.currentUserDecks
+    copyDeck.splice(index, 1, deck)
+    this.setState({currentUserDecks: copyDeck})
+  }
+
+  deleteDeck = (deck) => {
+    let indexDelete = this.state.currentUserDecks.findIndex(i => i.id === deck.id)
+    let copyDeleteDeck = this.state.currentUserDecks
+    copyDeleteDeck.splice(indexDelete, 1)
+    this.setState({currentUserDecks: copyDeleteDeck})
   }
 
   render() {
@@ -60,7 +76,7 @@ class App extends Component {
                 <Signup updateCurrentUser={this.updateCurrentUser} />
               }
               />
-              <Route exact path="/profile" render={()=> <Profile currentUser={this.state.currentUser} currentUserDecks={this.state.currentUserDecks}/>} />
+              <Route exact path="/profile" render={()=> <Profile currentUser={this.state.currentUser} currentUserDecks={this.state.currentUserDecks} updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} createDeck={this.createDeck}/>} />
               <Route exact path="/login" render={()=>this.state.currentUser?
                 <Redirect to='/profile'/> :
                 <Login updateCurrentUser={this.updateCurrentUser}/>

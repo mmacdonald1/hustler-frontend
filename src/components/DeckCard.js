@@ -20,7 +20,7 @@ class DeckCard extends Component{
         "Authentication" : `Bearer ${token}`
       }
     }).then(resp => resp.json())
-    .then(console.log)
+    .then(data => this.props.deleteDeck(data))
   }
   render(){
     return(
