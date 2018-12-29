@@ -1,5 +1,6 @@
 import React from 'react'
 import {Jumbotron, Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
 
 const UserJumbotron = (props) => {
   return(
@@ -14,5 +15,13 @@ const UserJumbotron = (props) => {
     </Jumbotron>
   )
 }
-
-export default UserJumbotron
+const mapStateToProps = state => {
+  console.log(state)
+  return({
+    username: state.currentUser.username
+  })
+}
+const mapDispatchToProps = () =>{
+  handleShow: () => {dispatch({type: "OPEN_MODAL"})}
+}
+export default connect(mapStateToProps)(UserJumbotron)
