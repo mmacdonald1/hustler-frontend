@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import { connect } from 'react-redux';
 
 class CreateDeckModal extends Component{
   constructor() {
@@ -118,6 +119,10 @@ class CreateDeckModal extends Component{
       )
     }
   }
+const mapStateToProps= state =>{
+  return({
+    id: state.users.currentUser.id
+  })
+}
 
-
-export default CreateDeckModal
+export default connect(mapStateToProps)(CreateDeckModal)

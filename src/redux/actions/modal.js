@@ -1,7 +1,7 @@
-export const currentDeck = (deck) => {
-  console.log("Action Current Deck", deck)
+export const openModal = (deck) => {
+  console.log("Action Open Modal", deck)
   return{
-    type:"CURRENT_DECK",
+    type:"OPEN_MODAL",
     deck
   }
 }
