@@ -17,7 +17,7 @@ const UserJumbotron = (props) => {
 }
 const mapStateToProps = state => {
   return({
-    username: state.users.currentUser.username
+    username: state.users.username
   })
 }
 export default connect(mapStateToProps)(UserJumbotron)

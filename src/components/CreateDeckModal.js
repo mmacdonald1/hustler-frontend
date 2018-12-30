@@ -121,7 +121,7 @@ class CreateDeckModal extends Component{
   }
 const mapStateToProps= state =>{
   return({
-    id: state.users.currentUser.id
+    id: state.users.id
   })
 }
 

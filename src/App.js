@@ -7,29 +7,31 @@ import Login from './components/Login'
 import DeckPage from './containers/DeckPage'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {setUser} from './redux/actions/users';
+import {setDecks} from './redux/actions/decks';
 
 class App extends Component {
 
-  // componentDidMount(){
-  //   let token = localStorage.getItem('token')
-  //   //see if there is a token send it to the backend
-  //   console.log("component did mount")
-  //   if(token){
-  //     console.log("in if")
-  //     fetch('http://localhost:3000/profile',{
-  //       method:"GET",
-  //       headers:{
-  //         "Authentication" : `Bearer ${token}`
-  //       }
-  //     }).then(resp => resp.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       // this.setState({currentUser: data.user})
-  //       // this.setState({currentUserDecks: data.decks})
-  //     })
-  //   }
-  // }
+  componentDidMount(){
+    let token = localStorage.getItem('token')
+    //see if there is a token send it to the backend
+    console.log("component did mount")
+    if(token){
+      console.log("in if")
+      fetch('http://localhost:3000/profile',{
+        method:"GET",
+        headers:{
+          "Authentication" : `Bearer ${token}`
+        }
+      }).then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        this.props.setUser(data.user)
+        this.props.setDecks(data.decks)
+      })
+    }
+  }
 
   updateCurrentUser= (user, decks) =>{
     // this.setState({currentUser:user, currentUserDecks:decks})
@@ -61,18 +63,20 @@ class App extends Component {
   }
 
   render() {
+    console.log("!!!", typeof(this.props.currentUser))
+    console.log(!!this.props.currentUser, Object.keys(this.props.currentUser))
     return (
       <BrowserRouter>
           <Fragment>
-             <MainNav logged_in={!!this.props.currentUser} logout = {this.logout}/>
+             <MainNav logged_in={!!this.props.currentUser.username} logout = {this.logout}/>
             <Switch>
-              <Route exact path="/" render={()=>this.props.currentUser?
+              <Route exact path="/" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Signup updateCurrentUser={this.updateCurrentUser} />
               }
               />
               <Route exact path='/decks/:id' render={(props)=>{
-                  if(this.props.currentUser){
+                  if(this.props.currentUser.username){
                     let deckId = parseInt(props.match.params.id)
                     let deck = this.props.currentUserDecks.find(i => i.id === deckId)
                     return <DeckPage deck={deck}/>
@@ -82,7 +86,7 @@ class App extends Component {
                 }
               }/>
               <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} createDeck={this.createDeck}/>} />
-              <Route exact path="/login" render={()=>this.props.currentUser?
+              <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Login updateCurrentUser={this.updateCurrentUser}/>
               }
@@ -96,11 +100,17 @@ class App extends Component {
 }
 
 const mapStateToProps = state =>{
-  console.log(state)
+  console.log(state, state.users, state.decks)
   return({
-    currentUser: state.users.currentUser,
-    currentUserDecks: state.decks.currentUserDecks
+    currentUser: state.users,
+    currentUserDecks: state.decks
+  })
+}
+const mapDispatchToProps= dispatch => {
+  return({
+    setUser: (user) => dispatch(setUser(user)),
+    setDecks: (decks) => dispatch(setDecks(decks))
   })
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
