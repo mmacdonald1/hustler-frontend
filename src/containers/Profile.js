@@ -52,7 +52,7 @@ render(){
 const mapStateToProps = state =>{
   return({
     currentUser: state.users.currentUser,
-    currentUserDecks: state.users.currentUserDecks
+    currentUserDecks: state.decks.currentUserDecks
   })
 }
 

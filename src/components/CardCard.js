@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-
 
 class CardCard extends Component{
   handleEditClick=()=>{

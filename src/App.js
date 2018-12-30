@@ -99,7 +99,7 @@ const mapStateToProps = state =>{
   console.log(state)
   return({
     currentUser: state.users.currentUser,
-    currentUserDecks: state.users.currentUserDecks
+    currentUserDecks: state.decks.currentUserDecks
   })
 }
 

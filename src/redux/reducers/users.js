@@ -1,9 +1,8 @@
-export default (state = {currentUser:{id:1, username:"lil_macd"},
-  currentUserDecks:[{id:1, user_id:1, name:"Rails"}]}, action) => {
+export default (state = {currentUser:null}, action) => {
   switch(action.type){
-    case 'ADD_USER':
-      console.log("Add User Reducer", state, action)
-       break;
+    case 'SET_USER':
+      console.log("Set User Reducer", state, action)
+      return action.user
     default:
     return state;
   }
