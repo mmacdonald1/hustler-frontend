@@ -49,13 +49,6 @@ class App extends Component {
     // this.setState({currentUserDecks: copyDeck})
   }
 
-  deleteDeck = (deck) => {
-    let indexDelete = this.props.currentUserDecks.findIndex(i => i.id === deck.id)
-    let copyDeleteDeck = this.props.currentUserDecks
-    copyDeleteDeck.splice(indexDelete, 1)
-    // this.setState({currentUserDecks: copyDeleteDeck})
-  }
-
   render() {
     console.log("!!!", typeof(this.props.currentUser))
     console.log(!!this.props.currentUser, Object.keys(this.props.currentUser))
@@ -79,7 +72,7 @@ class App extends Component {
                   }
                 }
               }/>
-              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} />} />
+              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks}  />} />
               <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Login updateCurrentUser={this.updateCurrentUser}/>
