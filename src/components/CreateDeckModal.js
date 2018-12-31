@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createDeck} from '../redux/actions/decks'
+import {createDeck, editDeck} from '../redux/actions/decks'
 
 class CreateDeckModal extends Component{
   constructor() {
@@ -11,8 +11,8 @@ class CreateDeckModal extends Component{
       };
   }
   componentDidMount(){
-    if(this.props.editDeck){
-      this.setState({name: this.props.editText})
+    if(this.props.currentDeck){
+      this.setState({name: this.props.currentDeck})
       console.log("here", this.state)
     }
   }
@@ -46,7 +46,7 @@ class CreateDeckModal extends Component{
     e.preventDefault()
     console.log(this.state.name)
 
-    fetch(`http://localhost:3000/decks/${this.props.editDeck.id}`, {
+    fetch(`http://localhost:3000/decks/${this.props.currentDeck.id}`, {
       method:"PATCH",
       headers:{
         "Content-type": "application/json",
@@ -58,7 +58,8 @@ class CreateDeckModal extends Component{
       })
     }).then(resp => resp.json())
     .then(data =>{
-      this.props.updateCurrentDecks(data.deck)
+      console.log(data)
+      this.props.editDeck(data.deck)
       this.props.handleClose()
     })
   }
@@ -127,7 +128,8 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    createDeck: (deck) => dispatch(createDeck(deck))
+    createDeck: (deck) => dispatch(createDeck(deck)),
+    editDeck: (deck) => dispatch(editDeck(deck))
   })
 }
 
