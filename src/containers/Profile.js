@@ -3,6 +3,7 @@ import {Redirect, withRouter} from 'react-router-dom'
 import DeckCard from '../components/DeckCard'
 import UserJumbotron from '../components/UserJumbotron'
 import CreateDeckModal from '../components/CreateDeckModal'
+import { connect } from 'react-redux';
 
 
 
@@ -11,7 +12,7 @@ class Profile extends Component{
       super();
       this.state = {
         show: false,
-        editDeck:null
+        currentDeck:null
       };
   }
 
@@ -23,29 +24,36 @@ class Profile extends Component{
       this.setState({ show: true });
     }
     handleEditForm = (deck) => {
-      this.setState({ show: true, editDeck: deck });
+      this.setState({ show: true, currentDeck: deck });
     }
 
 render(){
   let {currentUser, currentUserDecks} = this.props
   return(
-    <Fragment>
-      { currentUser ? (
-        <div>
+    currentUser.username ? (
+      <Fragment>
+          <div>
+            <UserJumbotron handleShow={this.handleShow}/>
+            {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} />) : null}
 
-          <UserJumbotron username={currentUser.username} handleShow={this.handleShow}/>
-          {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} deleteDeck={this.props.deleteDeck} />) : null}
+            <CreateDeckModal show={this.state.show} currentDeck={this.state.currentDeck} handleClose={this.handleClose} updateCurrentDecks={this.props.updateCurrentDecks} createDeck={this.props.createDeck}/>
 
-          <CreateDeckModal show={this.state.show} editDeck={this.state.editDeck} handleClose={this.handleClose} id={currentUser.id} updateCurrentDecks={this.props.updateCurrentDecks} createDeck={this.props.createDeck}/>
+          </div>
+      </Fragment>
+    ) : (
+       <Redirect to='/login'/>
+    )
 
-        </div>
-        ):(
-          <Redirect to='/login'/>
-        )
-      }
-    </Fragment>
   )
 }
 }
 
-export default withRouter(Profile)
+const mapStateToProps = state =>{
+  console.log(state)
+  return({
+    currentUser: state.users,
+    currentUserDecks: state.decks
+  })
+}
+
+export default withRouter(connect(mapStateToProps)(Profile))

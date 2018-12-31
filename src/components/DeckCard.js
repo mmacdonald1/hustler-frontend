@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux';
+import {deleteDeck} from '../redux/actions/decks'
 
 
 class DeckCard extends Component{
@@ -38,5 +40,10 @@ class DeckCard extends Component{
     )
   }
 }
+const mapDispatchToProps = dispatch => {
+  return({
+    deleteDeck: (deck) => dispatch(deleteDeck(deck))
+  })
+}
 
-export default DeckCard
+export default connect(null, mapDispatchToProps)(DeckCard)

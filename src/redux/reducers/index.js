@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import users from './users';
-import modal from './modal';
+import decks from './decks';
 
 export default combineReducers({
   users,
-  modal
+  decks
 });

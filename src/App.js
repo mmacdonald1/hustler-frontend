@@ -7,15 +7,11 @@ import Login from './components/Login'
 import DeckPage from './containers/DeckPage'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import {connect} from 'react-redux';
+import {setUser} from './redux/actions/users';
+import {setDecks} from './redux/actions/decks';
 
 class App extends Component {
-  constructor(){
-    super()
-    this.state = {
-      currentUser:null,
-      currentUserDecks:null
-    }
-  }
 
   componentDidMount(){
     let token = localStorage.getItem('token')
@@ -30,65 +26,54 @@ class App extends Component {
         }
       }).then(resp => resp.json())
       .then(data => {
-        console.log(data)
-        this.setState({currentUser: data.user})
-        this.setState({currentUserDecks: data.decks})
+        console.log(data, data.user, data.user.decks)
+        this.props.setDecks(data.user.decks)
+        this.props.setUser(data.user)
       })
     }
   }
 
   updateCurrentUser= (user, decks) =>{
-    this.setState({currentUser:user, currentUserDecks:decks})
+    // this.setState({currentUser:user, currentUserDecks:decks})
   }
 
   logout = () => {
     localStorage.removeItem('token')
-    this.setState({currentUser:null})
-  }
-  createDeck = (deck) => {
-    console.log("the deck is here!", deck)
-    let copyCreateDeck = this.state.currentUserDecks
-    copyCreateDeck.push(deck)
-    console.log("did the thing", copyCreateDeck)
+    // this.setState({currentUser:null})
   }
 
   updateCurrentDecks = (deck) => {
-    let index = this.state.currentUserDecks.findIndex(i => i.id === deck.id)
-    let copyDeck = this.state.currentUserDecks
+    let index = this.props.currentUserDecks.findIndex(i => i.id === deck.id)
+    let copyDeck = this.props.currentUserDecks
     copyDeck.splice(index, 1, deck)
-    this.setState({currentUserDecks: copyDeck})
-  }
-
-  deleteDeck = (deck) => {
-    let indexDelete = this.state.currentUserDecks.findIndex(i => i.id === deck.id)
-    let copyDeleteDeck = this.state.currentUserDecks
-    copyDeleteDeck.splice(indexDelete, 1)
-    this.setState({currentUserDecks: copyDeleteDeck})
+    // this.setState({currentUserDecks: copyDeck})
   }
 
   render() {
+    console.log("!!!", typeof(this.props.currentUser))
+    console.log(!!this.props.currentUser, Object.keys(this.props.currentUser))
     return (
       <BrowserRouter>
           <Fragment>
-            <MainNav logged_in={!!this.state.currentUser} logout = {this.logout}/>
+             <MainNav logged_in={!!this.props.currentUser.username} logout = {this.logout}/>
             <Switch>
-              <Route exact path="/" render={()=>this.state.currentUser?
+              <Route exact path="/" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Signup updateCurrentUser={this.updateCurrentUser} />
               }
               />
               <Route exact path='/decks/:id' render={(props)=>{
-                  if(this.state.currentUser){
+                  if(this.props.currentUser.username){
                     let deckId = parseInt(props.match.params.id)
-                    let deck = this.state.currentUserDecks.find(i => i.id === deckId)
+                    let deck = this.props.currentUserDecks.find(i => i.id === deckId)
                     return <DeckPage deck={deck}/>
                   }else{
                     return <Redirect to='/profile'/>
                   }
                 }
               }/>
-              <Route exact path="/profile" render={()=> <Profile currentUser={this.state.currentUser} currentUserDecks={this.state.currentUserDecks} updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} createDeck={this.createDeck}/>} />
-              <Route exact path="/login" render={()=>this.state.currentUser?
+              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks}  />} />
+              <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Login updateCurrentUser={this.updateCurrentUser}/>
               }
@@ -101,4 +86,18 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state =>{
+  console.log(state, state.users, state.decks)
+  return({
+    currentUser: state.users,
+    currentUserDecks: state.decks
+  })
+}
+const mapDispatchToProps= dispatch => {
+  return({
+    setUser: (user) => dispatch(setUser(user)),
+    setDecks: (decks) => dispatch(setDecks(decks))
+  })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,5 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
+import { connect } from 'react-redux';
+import {setUser} from '../redux/actions/users'
+import {setDecks} from '../redux/actions/decks'
 
 class Login extends Component {
   state = {
@@ -27,12 +30,13 @@ class Login extends Component {
       })
     }).then(resp => resp.json())
     .then(data => {
-      console.log('still attempting to login', data)
+      console.log('still attempting to login', data, data.user, data.user.decks)
       if(data.error){
         alert('incorrect username or password')
       }else{
         localStorage.setItem('token', data.token)
-        this.props.updateCurrentUser(data.user, data.decks)
+        this.props.setDecks(data.user.decks)
+        this.props.setUser(data.user)
       }
     })
   }
@@ -79,5 +83,11 @@ class Login extends Component {
   }
 }
 
+const mapDispatchToProps= dispatch => {
+  return({
+    setUser: (user) => dispatch(setUser(user)),
+    setDecks: (decks) => dispatch(setDecks(decks))
+  })
+}
 
-export default Login
+export default connect(null, mapDispatchToProps)(Login)

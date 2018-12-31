@@ -16,12 +16,8 @@ const UserJumbotron = (props) => {
   )
 }
 const mapStateToProps = state => {
-  console.log(state)
   return({
-    username: state.currentUser.username
+    username: state.users.username
   })
-}
-const mapDispatchToProps = () =>{
-  handleShow: () => {dispatch({type: "OPEN_MODAL"})}
 }
 export default connect(mapStateToProps)(UserJumbotron)
