@@ -8,7 +8,7 @@ export default (state = {cards:[]}, action) => {
       return [...state, action.card]
     case 'EDIT_CARD':
       console.log("Edit Card Reducer", state, action)
-      const index = state.findIndex(card => card.id === action.card.id)
+      const index = state.findIndex(card => card.id === action.id)
       const newState = state.splice(index, 1, action.card)
       console.log(newState, [...state])
       return [...state]

@@ -4,6 +4,7 @@ import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootst
 class CardCard extends Component{
   handleEditClick=()=>{
     console.log('You are trying to edit a card')
+    this.props.handleEditForm(this.props.card)
   }
   handleDeleteClick=()=>{
     console.log('You are trying to delete a card')
