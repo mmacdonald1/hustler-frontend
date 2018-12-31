@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {Jumbotron, Button} from 'react-bootstrap'
 import CardCard from '../components/CardCard'
+import {connect} from 'react-redux';
+import {setCards} from '../redux/actions/cards'
 
 class DeckPage extends Component{
   constructor() {
       super();
       this.state = {
-        show: false,
-        cards:[]
+        show: false
       };
   }
   componentDidMount(){
@@ -19,7 +20,8 @@ class DeckPage extends Component{
       }
     }).then(resp => resp.json())
     .then(data => {
-      this.setState({cards:data.cards})
+      console.log(data, this.props)
+      this.props.setCards(data.cards)
     })
   }
   handleCardModalShow=()=>{
@@ -42,5 +44,16 @@ class DeckPage extends Component{
     )
   }
 }
+const mapStateToProps = state =>{
+  return({
+    cards: state.cards
+  })
+}
 
-export default DeckPage
+const mapDispatchToProps = dispatch =>{
+  return({
+    setCards: (cards)=> dispatch(setCards(cards))
+  })
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DeckPage)
