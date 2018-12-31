@@ -1,12 +1,11 @@
 import React from 'react'
 import {withRouter} from "react-router-dom"
 import {Navbar, Nav, NavItem} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {logoutUser} from '../redux/actions/users'
 
 const MainNav = (props) =>{
   console.log(props)
-  // let { location: { pathname } } = props
-  let logged_in = props.logged_in;
-  let logout = props.logout
   return(
     <Navbar inverse collapseOnSelect>
       <Navbar.Header>
@@ -17,9 +16,9 @@ const MainNav = (props) =>{
       </Navbar.Header>
 
       <Navbar.Collapse>
-      { logged_in ? (
+      { props.logged_in ? (
         <Nav pullRight>
-          <NavItem onClick={logout} href="/logout">
+          <NavItem onClick={props.logoutUser} href="/">
             Logout
           </NavItem>
         </Nav>
@@ -36,5 +35,14 @@ const MainNav = (props) =>{
     </Navbar>
   )
 }
-
-export default withRouter(MainNav)
+const mapStateToProps = state =>{
+  return({
+    logged_in: !!state.users.username
+  })
+}
+const mapDispatchToProps = dispatch =>{
+  return({
+    logoutUser: () => dispatch(logoutUser())
+  })
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainNav))
