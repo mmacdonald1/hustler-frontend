@@ -30,23 +30,29 @@ class Profile extends Component{
 render(){
   let {currentUser, currentUserDecks} = this.props
   return(
-    <Fragment>
-        <div>
-          <UserJumbotron handleShow={this.handleShow}/>
-          {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} deleteDeck={this.props.deleteDeck} />) : null}
+    currentUser.username ? (
+      <Fragment>
+          <div>
+            <UserJumbotron handleShow={this.handleShow}/>
+            {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} deleteDeck={this.props.deleteDeck} />) : null}
 
-          <CreateDeckModal show={this.state.show} editDeck={this.state.editDeck} handleClose={this.handleClose} updateCurrentDecks={this.props.updateCurrentDecks} createDeck={this.props.createDeck}/>
+            <CreateDeckModal show={this.state.show} editDeck={this.state.editDeck} handleClose={this.handleClose} updateCurrentDecks={this.props.updateCurrentDecks} createDeck={this.props.createDeck}/>
 
-        </div>
-    </Fragment>
+          </div>
+      </Fragment>
+    ) : (
+       <Redirect to='/login'/>
+    )
+
   )
 }
 }
 
 const mapStateToProps = state =>{
+  console.log(state)
   return({
-    currentUser: state.users.currentUser,
-    currentUserDecks: state.decks.currentUserDecks
+    currentUser: state.users,
+    currentUserDecks: state.decks
   })
 }
 

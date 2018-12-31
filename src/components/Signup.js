@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
+import { connect } from 'react-redux';
+import {createUser} from '../redux/actions/users'
 
 class Signup extends Component {
   state = {
@@ -35,7 +37,7 @@ class Signup extends Component {
       }else{
         console.log(data)
         localStorage.setItem('token', data.token)
-        this.props.updateCurrentUser(data.user)
+        this.props.createUser(data.user)
       }
     })
   }
@@ -95,5 +97,10 @@ class Signup extends Component {
     )
   }
 }
+const mapDispatchToProps= dispatch =>{
+  return({
+    createUser: (user)=>dispatch(createUser(user))
+  })
+}
 
-export default Signup
+export default connect(null, mapDispatchToProps)(Signup)

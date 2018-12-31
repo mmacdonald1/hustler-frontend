@@ -13,9 +13,10 @@ export const logoutUser = () => {
   }
 }
 
-export const createUser = (username, email, password) =>{
+export const createUser = (user) =>{
   console.log("Action create user")
   return{
-    type:"CREATE_USER"
+    type:"CREATE_USER",
+    user
   }
 }

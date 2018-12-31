@@ -5,3 +5,10 @@ export const setDecks = (decks) => {
     decks
   }
 }
+export const createDecks = (deck) =>{
+  console.log("Action create decks")
+  return{
+    type:"CREATE_DECKS",
+    deck
+  }
+}

@@ -30,13 +30,13 @@ class Login extends Component {
       })
     }).then(resp => resp.json())
     .then(data => {
-      console.log('still attempting to login', data)
+      console.log('still attempting to login', data, data.user, data.user.decks)
       if(data.error){
         alert('incorrect username or password')
       }else{
         localStorage.setItem('token', data.token)
         this.props.setUser(data.user)
-        this.props.setDecks(data.decks)
+        this.props.setDecks(data.user.decks)
       }
     })
   }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
+import {createDecks} from '../redux/actions/decks'
 
 class CreateDeckModal extends Component{
   constructor() {
@@ -36,9 +37,9 @@ class CreateDeckModal extends Component{
       })
     }).then(resp => resp.json())
     .then(data => {
-    this.props.createDeck(data.deck)
-    this.props.handleClose()
-
+      console.log(data)
+      this.props.createDecks(data.deck)
+      this.props.handleClose()
     })
   }
   handleEditDeckSubmit = (e) => {
@@ -124,5 +125,10 @@ const mapStateToProps= state =>{
     id: state.users.id
   })
 }
+const mapDispatchToProps= dispatch =>{
+  return({
+    createDecks: (deck) => dispatch(createDecks(deck))
+  })
+}
 
-export default connect(mapStateToProps)(CreateDeckModal)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDeckModal)

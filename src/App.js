@@ -26,9 +26,9 @@ class App extends Component {
         }
       }).then(resp => resp.json())
       .then(data => {
-        console.log(data)
+        console.log(data, data.user, data.user.decks)
+        this.props.setDecks(data.user.decks)
         this.props.setUser(data.user)
-        this.props.setDecks(data.decks)
       })
     }
   }
@@ -40,12 +40,6 @@ class App extends Component {
   logout = () => {
     localStorage.removeItem('token')
     // this.setState({currentUser:null})
-  }
-  createDeck = (deck) => {
-    console.log("the deck is here!", deck)
-    let copyCreateDeck = this.props.currentUserDecks
-    copyCreateDeck.push(deck)
-    console.log("did the thing", copyCreateDeck)
   }
 
   updateCurrentDecks = (deck) => {
@@ -85,7 +79,7 @@ class App extends Component {
                   }
                 }
               }/>
-              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} createDeck={this.createDeck}/>} />
+              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks} deleteDeck={this.deleteDeck} />} />
               <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Login updateCurrentUser={this.updateCurrentUser}/>
