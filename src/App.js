@@ -33,21 +33,6 @@ class App extends Component {
     }
   }
 
-  updateCurrentUser= (user, decks) =>{
-    // this.setState({currentUser:user, currentUserDecks:decks})
-  }
-
-  logout = () => {
-    localStorage.removeItem('token')
-    // this.setState({currentUser:null})
-  }
-
-  updateCurrentDecks = (deck) => {
-    let index = this.props.currentUserDecks.findIndex(i => i.id === deck.id)
-    let copyDeck = this.props.currentUserDecks
-    copyDeck.splice(index, 1, deck)
-    // this.setState({currentUserDecks: copyDeck})
-  }
 
   render() {
     console.log("!!!", typeof(this.props.currentUser))
@@ -55,11 +40,11 @@ class App extends Component {
     return (
       <BrowserRouter>
           <Fragment>
-             <MainNav logged_in={!!this.props.currentUser.username} logout = {this.logout}/>
+             <MainNav />
             <Switch>
               <Route exact path="/" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
-                <Signup updateCurrentUser={this.updateCurrentUser} />
+                <Signup />
               }
               />
               <Route exact path='/decks/:id' render={(props)=>{
@@ -72,10 +57,10 @@ class App extends Component {
                   }
                 }
               }/>
-              <Route exact path="/profile" render={()=> <Profile updateCurrentDecks={this.updateCurrentDecks}  />} />
+              <Route exact path="/profile" render={()=> <Profile />} />
               <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
-                <Login updateCurrentUser={this.updateCurrentUser}/>
+                <Login />
               }
               />
               <Route component={NotFound} />

@@ -10,12 +10,6 @@ class CreateDeckModal extends Component{
         name:""
       };
   }
-  componentDidMount(){
-    if(this.props.currentDeck){
-      this.setState({name: this.props.currentDeck})
-      console.log("here", this.state)
-    }
-  }
 
   handleChange = (e) => {
     let {name, value} = e.target
@@ -67,7 +61,7 @@ class CreateDeckModal extends Component{
   render(){
     console.log(this.props)
     return(
-      this.props.editDeck ?(
+      this.props.currentDeck ?(
       <Modal show={this.props.show} onHide={this.props.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit a Deck</Modal.Title>

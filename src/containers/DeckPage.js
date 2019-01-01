@@ -1,15 +1,30 @@
 import React, {Component} from 'react'
 import {Jumbotron, Button} from 'react-bootstrap'
 import CardCard from '../components/CardCard'
+import CreateCardModal from '../components/CreateCardModal'
+import {connect} from 'react-redux';
+import {setCards} from '../redux/actions/cards'
 
 class DeckPage extends Component{
   constructor() {
       super();
       this.state = {
         show: false,
-        cards:[]
+        currentCard:null
       };
   }
+
+  handleCardModalClose = () => {
+    this.setState({ show: false });
+  }
+
+  handleCardModalShow = () => {
+    this.setState({ show: true });
+  }
+  handleEditForm = (card) => {
+    this.setState({ show: true, currentCard: card });
+  }
+
   componentDidMount(){
     fetch(`http://localhost:3000/decks/${this.props.deck.id}/cards`,{
       method:"GET",
@@ -19,7 +34,8 @@ class DeckPage extends Component{
       }
     }).then(resp => resp.json())
     .then(data => {
-      this.setState({cards:data.cards})
+      console.log(data, this.props)
+      this.props.setCards(data.cards)
     })
   }
   handleCardModalShow=()=>{
@@ -36,11 +52,24 @@ class DeckPage extends Component{
           </p>
         </Jumbotron>
         <div>
-          {this.state.cards ? this.state.cards.map(card => <CardCard key={card.id} card={card}/>) : null}
+          {this.props.cards[0] ? this.props.cards.map(card => <CardCard key={card.id} card={card} handleEditForm = {this.handleEditForm} />) : null}
         </div>
+        <CreateCardModal show={this.state.show} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleCardModalClose={this.handleCardModalClose} />
       </div>
     )
   }
 }
+const mapStateToProps = state =>{
+  console.log(state.cards)
+  return({
+    cards: state.cards
+  })
+}
 
-export default DeckPage
+const mapDispatchToProps = dispatch =>{
+  return({
+    setCards: (cards)=> dispatch(setCards(cards))
+  })
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DeckPage)
