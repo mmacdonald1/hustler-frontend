@@ -15,7 +15,7 @@ class DeckPage extends Component{
   }
 
   handleCardModalClose = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, currentCard:null });
   }
 
   handleCardModalShow = () => {

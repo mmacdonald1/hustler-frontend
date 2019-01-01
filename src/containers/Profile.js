@@ -17,7 +17,7 @@ class Profile extends Component{
   }
 
     handleClose = () => {
-      this.setState({ show: false });
+      this.setState({ show: false, currentDeck: null });
     }
 
     handleShow = () => {
@@ -34,7 +34,7 @@ render(){
       <Fragment>
           <div>
             <UserJumbotron handleShow={this.handleShow}/>
-            {currentUserDecks ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} />) : null}
+            {currentUserDecks[0] ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} />) : null}
 
             <CreateDeckModal show={this.state.show} currentDeck={this.state.currentDeck} handleClose={this.handleClose} />
 
