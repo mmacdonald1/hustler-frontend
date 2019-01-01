@@ -14,7 +14,7 @@ export const createCard = (card) =>{
 }
 
 export const editCard = (card) =>{
-  console.log("Action edit card")
+  console.log("Action edit card", card)
   return{
     type:"EDIT_CARD",
     card

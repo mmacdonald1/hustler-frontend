@@ -56,7 +56,7 @@ class CreateCardModal extends Component{
     }).then(resp => resp.json())
     .then(data =>{
       console.log(data)
-      this.props.editCard(data.deck)
+      this.props.editCard(data.card)
       this.props.handleCardModalClose()
     })
   }
