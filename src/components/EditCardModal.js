@@ -47,7 +47,7 @@ class EditCardModal extends Component{
         <Modal.Header closeButton>
           <Modal.Title>Edit a Card</Modal.Title>
         </Modal.Header>
-        <form onSubmit={this.handleEditCardSubmit}>
+        <form onSubmit={(e)=>this.handleEditCardSubmit(e)}>
           <Modal.Body>
           <FormGroup>
             <ControlLabel>Card Title</ControlLabel>

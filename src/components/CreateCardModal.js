@@ -46,9 +46,9 @@ class CreateCardModal extends Component{
 
       <Modal show={this.props.show} onHide={this.props.handleCardModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit a Card</Modal.Title>
+          <Modal.Title>Create a Card</Modal.Title>
         </Modal.Header>
-        <form onSubmit={this.handleEditCardSubmit}>
+        <form onSubmit={this.handleCreateCardSubmit}>
           <Modal.Body>
           <FormGroup>
             <ControlLabel>Card Title</ControlLabel>

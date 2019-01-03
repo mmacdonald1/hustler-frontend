@@ -25,10 +25,10 @@ class DeckPage extends Component{
   }
   handleEditForm = (card) => {
     console.log(card)
-    this.setState({ show: true, currentCard: card });
+    this.setState({ editShow: true, currentCard: card });
   }
   handleEditFormClose = (card) => {
-    this.setState({ show: false, currentCard: null });
+    this.setState({ editShow: false, currentCard: null });
   }
 
   componentDidMount(){
@@ -58,8 +58,8 @@ class DeckPage extends Component{
         <div>
           {this.props.cards[0] ? this.props.cards.map(card => <CardCard key={card.id} card={card} handleEditForm = {this.handleEditForm} />) : null}
         </div>
-        <CreateCardModal show={this.state.show} deckId={this.props.deck.id} currentCard={this.state.currentCard} />
-        <EditCardModal editShow={this.state.editShow} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleCardModalClose={this.handleCardModalClose} />
+        <CreateCardModal show={this.state.show} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleCardModalClose ={this.handleCardModalClose}/>
+        <EditCardModal editShow={this.state.editShow} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleEditFormClose={this.handleEditFormClose} />
 
       </div>
     )
