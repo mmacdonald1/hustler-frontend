@@ -20,7 +20,7 @@ class EditCardModal extends Component{
   handleEditCardSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-    this.props.editCardFetch(this.props.currentCard.id,this.state.title,this.state.content,this.props.deckId)
+    this.props.editCardFetch(this.props.currentCard.id, this.state.title, this.state.content, this.props.deckId)
     this.props.handleEditFormClose()
   }
 

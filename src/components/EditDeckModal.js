@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {editDeck} from '../redux/actions/decks'
+import {editDeckFetch} from '../redux/actions/decks'
 
 class EditDeckModal extends Component{
   constructor() {
@@ -19,23 +19,8 @@ class EditDeckModal extends Component{
   handleEditDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
-
-    fetch(`http://localhost:3000/decks/${this.props.currentDeck.id}`, {
-      method:"PATCH",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        user_id: this.props.id
-      })
-    }).then(resp => resp.json())
-    .then(data =>{
-      console.log(data)
-      this.props.editDeck(data.deck)
-      this.props.handleEditFormClose()
-    })
+    this.props.editDeckFetch(this.props.currentDeck.id, this.state.name, this.props.id)
+    this.props.handleEditFormClose()
   }
 
   render(){
@@ -75,7 +60,7 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    editDeck: (deck) => dispatch(editDeck(deck))
+    editDeckFetch: (deckId, deckName, user_id) => dispatch(editDeckFetch(deckId, deckName, user_id))
   })
 }
 

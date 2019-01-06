@@ -34,6 +34,26 @@ export const createDeck = (deck) =>{
   }
 }
 
+export const editDeckFetch = (deckId, deckName, user_id) =>{
+  return (dispatch) => {
+    fetch(`http://localhost:3000/decks/${deckId}`, {
+      method:"PATCH",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: deckName,
+        user_id: user_id
+      })
+    }).then(resp => resp.json())
+    .then(data =>{
+      console.log(data)
+      dispatch(editDeck(data.deck))
+    })
+  }
+}
+
 export const editDeck = (deck) =>{
   console.log("Action edit deck")
   return{
