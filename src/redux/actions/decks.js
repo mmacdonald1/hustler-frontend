@@ -5,6 +5,27 @@ export const setDecks = (decks) => {
     decks
   }
 }
+
+export const createDeckFetch = (deckName,user_id) =>{
+  return (dispatch) => {
+    fetch('http://localhost:3000/decks', {
+      method:"POST",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: deckName,
+        user_id: user_id
+      })
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      dispatch(createDeck(data.deck))
+    })
+  }
+}
+
 export const createDeck = (deck) =>{
   console.log("Action create deck")
   return{
