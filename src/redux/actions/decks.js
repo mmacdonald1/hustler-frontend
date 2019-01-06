@@ -21,6 +21,20 @@ export const editDeck = (deck) =>{
   }
 }
 
+export const deleteDeckFetch = (id) =>{
+  let token = localStorage.getItem('token')
+  return (dispatch) => {
+    fetch(`http://localhost:3000/decks/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Authentication" : `Bearer ${token}`
+      }
+    }).then(resp => resp.json())
+    .then(data => dispatch(deleteDeck(data)))
+  }
+}
+
+
 export const deleteDeck = (deck) =>{
   console.log("Action delete deck")
   return({
