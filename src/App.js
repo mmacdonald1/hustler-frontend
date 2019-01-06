@@ -5,6 +5,7 @@ import NotFound from './components/NotFound'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import DeckPage from './containers/DeckPage'
+import Quiz from './containers/Quiz'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import {connect} from 'react-redux';
@@ -49,6 +50,11 @@ class App extends Component {
               <Route exact path="/login" render={()=>this.props.currentUser.username?
                 <Redirect to='/profile'/> :
                 <Login />
+              }
+              />
+              <Route exact path="/quiz" render={()=>this.props.currentUser.username?
+                <Quiz /> :
+                <Redirect to='/profile'/>
               }
               />
               <Route component={NotFound} />

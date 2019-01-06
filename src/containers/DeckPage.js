@@ -3,6 +3,7 @@ import {Jumbotron, Button} from 'react-bootstrap'
 import CardCard from '../components/CardCard'
 import CreateCardModal from '../components/CreateCardModal'
 import EditCardModal from  '../components/EditCardModal'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux';
 import {setCardsFetch} from '../redux/actions/cards'
 
@@ -42,10 +43,12 @@ class DeckPage extends Component{
         <Jumbotron>
           <h1>{this.props.deck.name}</h1>
           <p>
-            <Button bsStyle="primary" onClick={this.handleCardModalShow}>Create a Card</Button>
+              <Button bsStyle="primary" onClick={this.handleCardModalShow}>Create a Card</Button>
           </p>
           <p>
-            <Button bsStyle="primary"> Take a Quiz </Button>
+            <Link to={`/quiz`}>
+              Take a Quiz
+            </Link>
           </p>
         </Jumbotron>
         <div>
