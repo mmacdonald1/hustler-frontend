@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createUser} from '../redux/actions/users'
+import {signupUser} from '../redux/actions/users'
 
 class Signup extends Component {
   state = {
@@ -18,28 +18,7 @@ class Signup extends Component {
   handleSignupSubmit = (e) =>{
     e.preventDefault()
     console.log('attempting to signup')
-    fetch('http://localhost:3000/users', {
-      method:"POST",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        email: this.state.email,
-        password: this.state.password
-      })
-    }).then(resp => resp.json())
-    .then(data => {
-      console.log('still attempting to signup', data)
-      if(data.error){
-        alert(data.error)
-      }else{
-        console.log(data)
-        localStorage.setItem('token', data.token)
-        this.props.createUser(data.user)
-      }
-    })
+    this.props.signupUser(this.state.username, this.state.email, this.state.password)
   }
 
 
@@ -99,7 +78,7 @@ class Signup extends Component {
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    createUser: (user)=>dispatch(createUser(user))
+    signupUser: (username, email, password)=>dispatch(signupUser(username, email, password))
   })
 }
 

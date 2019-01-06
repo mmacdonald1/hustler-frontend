@@ -43,6 +43,32 @@ export const loginUser = (username, password) =>{
   }
 }
 
+export const signupUser = (username, email, password) =>{
+  return (dispatch) => {
+    fetch('http://localhost:3000/users', {
+      method:"POST",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password
+      })
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log('still attempting to signup', data)
+      if(data.error){
+        alert(data.error)
+      }else{
+        console.log(data)
+        localStorage.setItem('token', data.token)
+        dispatch(createUser(data.user))
+      }
+    })
+  }
+}
 
 export const setUser = (user) => {
   console.log("Action set user", user)
