@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createCardFetch} from '../redux/actions/cards'
+import {editCardFetch} from '../redux/actions/cards'
 
-class CreateCardModal extends Component{
+class EditCardModal extends Component{
   constructor() {
       super();
       this.state = {
@@ -16,23 +16,22 @@ class CreateCardModal extends Component{
     let {name, value} = e.target
     this.setState({[name]:value})
   }
-  handleCreateCardSubmit = (e) => {
+
+  handleEditCardSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-    this.props.createCardFetch(this.state.title,this.state.content,this.props.deckId)
-    this.props.handleCardModalClose()
+    this.props.editCardFetch(this.props.currentCard.id, this.state.title, this.state.content, this.props.deckId)
+    this.props.handleEditFormClose()
   }
-
 
   render(){
     console.log(this.props)
     return(
-
-      <Modal show={this.props.show} onHide={this.props.handleCardModalClose}>
+      <Modal show={this.props.editShow} onHide={this.props.handleEditFormClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create a Card</Modal.Title>
+          <Modal.Title>Edit a Card</Modal.Title>
         </Modal.Header>
-        <form onSubmit={this.handleCreateCardSubmit}>
+        <form onSubmit={(e)=>this.handleEditCardSubmit(e)}>
           <Modal.Body>
           <FormGroup>
             <ControlLabel>Card Title</ControlLabel>
@@ -64,14 +63,13 @@ class CreateCardModal extends Component{
           </Modal.Footer>
         </form>
       </Modal>
-
       )
     }
   }
 const mapDispatchToProps= dispatch =>{
   return({
-    createCardFetch: (title,content,deck_id) => dispatch(createCardFetch(title,content,deck_id))
+    editCardFetch: (cardId, title ,content, deckId) => dispatch(editCardFetch(cardId, title ,content, deckId))
   })
 }
 
-export default connect(null, mapDispatchToProps)(CreateCardModal)
+export default connect(null, mapDispatchToProps)(EditCardModal)

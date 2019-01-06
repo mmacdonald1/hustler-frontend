@@ -1,25 +1,17 @@
 import React, {Component} from 'react'
 import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
 import {connect} from 'react-redux';
-import {deleteCard} from '../redux/actions/cards'
+import {deleteCardFetch} from '../redux/actions/cards'
 
 class CardCard extends Component{
   handleEditClick=()=>{
-    console.log('You are trying to edit a card')
+    console.log('You are trying to edit a card',this.props.card)
     this.props.handleEditForm(this.props.card)
   }
   handleDeleteClick=()=>{
-    console.log('You are trying to delete a card')
-    let token = localStorage.getItem('token')
-    fetch(`http://localhost:3000/cards/${this.props.card.id}`,{
-      method:"DELETE",
-      headers:{
-        "Authentication" : `Bearer ${token}`
-      }
-    }).then(resp => resp.json())
-    .then(data => this.props.deleteCard(data))
+  this.props.deleteCardFetch(this.props.card.id)
   }
-  
+
   render(){
     console.log(this.props)
     return(
@@ -45,7 +37,7 @@ class CardCard extends Component{
 
 const mapDispatchToProps = dispatch =>{
   return({
-    deleteCard: (card) => dispatch(deleteCard(card))
+    deleteCardFetch: (id) => dispatch(deleteCardFetch(id))
   })
 }
 

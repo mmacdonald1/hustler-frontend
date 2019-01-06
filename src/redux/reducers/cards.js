@@ -7,10 +7,10 @@ export default (state = {cards:[]}, action) => {
       console.log("Create Card Reducer", state, action)
       return [...state, action.card]
     case 'EDIT_CARD':
-      console.log("Edit Card Reducer", state, action)
-      const index = state.findIndex(card => card.id === action.id)
+      console.log("Edit Card Reducer", state, action, action.card, action.card.id)
+      const index = state.findIndex(card => card.id === action.card.id)
       const newState = state.splice(index, 1, action.card)
-      console.log(newState, [...state])
+      console.log(index,newState, [...state])
       return [...state]
     case 'DELETE_CARD':
       console.log("Delete Card Reducer", state, action)

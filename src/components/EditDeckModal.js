@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createDeckFetch} from '../redux/actions/decks'
+import {editDeckFetch} from '../redux/actions/decks'
 
-class CreateDeckModal extends Component{
+class EditDeckModal extends Component{
   constructor() {
       super();
       this.state = {
@@ -15,31 +15,30 @@ class CreateDeckModal extends Component{
     let {name, value} = e.target
     this.setState({[name]:value})
   }
-  handleCreateDeckSubmit = (e) => {
+
+  handleEditDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
-    this.props.createDeckFetch(this.state.name,this.props.id)
-    this.props.handleClose()
+    this.props.editDeckFetch(this.props.currentDeck.id, this.state.name, this.props.id)
+    this.props.handleEditFormClose()
   }
-
 
   render(){
     console.log(this.props)
     return(
-      <Modal show={this.props.show} onHide={this.props.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a Deck</Modal.Title>
-        </Modal.Header>
-        <form onSubmit={this.handleCreateDeckSubmit}>
-          <Modal.Body>
 
+      <Modal show={this.props.editShow} onHide={this.props.handleEditFormClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit a Deck</Modal.Title>
+        </Modal.Header>
+        <form onSubmit={this.handleEditDeckSubmit}>
+          <Modal.Body>
               <FormGroup>
                 <ControlLabel>Deck Name</ControlLabel>
                 <FormControl
                   name= "name"
                   type="text"
                   value={this.state.name}
-                  placeholder="Enter deck name"
                   onChange={this.handleChange}
                 />
                 <FormControl.Feedback />
@@ -61,8 +60,8 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    createDeckFetch: (deckName, user_id) => dispatch(createDeckFetch(deckName, user_id))
+    editDeckFetch: (deckId, deckName, user_id) => dispatch(editDeckFetch(deckId, deckName, user_id))
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateDeckModal)
+export default connect(mapStateToProps, mapDispatchToProps)(EditDeckModal)
