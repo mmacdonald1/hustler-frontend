@@ -5,6 +5,28 @@ export const setCards = (cards) => {
     cards
   }
 }
+
+export const createCardFetch = (title, content, deckId) =>{
+  return (dispatch) => {
+    fetch(`http://localhost:3000/cards`, {
+      method:"POST",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        deck_id: deckId
+      })
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      dispatch(createCard(data.card))
+    })
+  }
+}
+
 export const createCard = (card) =>{
   console.log("Action create card")
   return{
