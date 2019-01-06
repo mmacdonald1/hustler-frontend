@@ -14,7 +14,12 @@ import {getUser} from './redux/actions/users';
 class App extends Component {
 
   componentDidMount(){
-        this.props.getUser()
+    let token = localStorage.getItem('token')
+    //see if there is a token send it to the backend
+    console.log("component did mount")
+    if(token){
+    this.props.getUser(token)
+    }
   }
 
   render() {
@@ -63,7 +68,7 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps= dispatch => {
   return({
-    getUser: (user) => dispatch(getUser(user)),
+    getUser: (token) => {dispatch(getUser(token))}
   })
 }
 

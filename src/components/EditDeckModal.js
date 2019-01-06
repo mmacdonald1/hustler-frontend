@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createDeck} from '../redux/actions/decks'
+import {editDeck} from '../redux/actions/decks'
 
-class CreateDeckModal extends Component{
+class EditDeckModal extends Component{
   constructor() {
       super();
       this.state = {
@@ -15,12 +15,13 @@ class CreateDeckModal extends Component{
     let {name, value} = e.target
     this.setState({[name]:value})
   }
-  handleCreateDeckSubmit = (e) => {
+
+  handleEditDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
 
-    fetch('http://localhost:3000/decks', {
-      method:"POST",
+    fetch(`http://localhost:3000/decks/${this.props.currentDeck.id}`, {
+      method:"PATCH",
       headers:{
         "Content-type": "application/json",
         "Accept": "application/json"
@@ -30,31 +31,29 @@ class CreateDeckModal extends Component{
         user_id: this.props.id
       })
     }).then(resp => resp.json())
-    .then(data => {
+    .then(data =>{
       console.log(data)
-      this.props.createDeck(data.deck)
-      this.props.handleClose()
+      this.props.editDeck(data.deck)
+      this.props.handleEditFormClose()
     })
   }
-
 
   render(){
     console.log(this.props)
     return(
-      <Modal show={this.props.show} onHide={this.props.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a Deck</Modal.Title>
-        </Modal.Header>
-        <form onSubmit={this.handleCreateDeckSubmit}>
-          <Modal.Body>
 
+      <Modal show={this.props.editShow} onHide={this.props.handleEditFormClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit a Deck</Modal.Title>
+        </Modal.Header>
+        <form onSubmit={this.handleEditDeckSubmit}>
+          <Modal.Body>
               <FormGroup>
                 <ControlLabel>Deck Name</ControlLabel>
                 <FormControl
                   name= "name"
                   type="text"
                   value={this.state.name}
-                  placeholder="Enter deck name"
                   onChange={this.handleChange}
                 />
                 <FormControl.Feedback />
@@ -76,8 +75,8 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    createDeck: (deck) => dispatch(createDeck(deck))
+    editDeck: (deck) => dispatch(editDeck(deck))
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateDeckModal)
+export default connect(mapStateToProps, mapDispatchToProps)(EditDeckModal)

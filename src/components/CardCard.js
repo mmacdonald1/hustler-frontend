@@ -5,7 +5,7 @@ import {deleteCard} from '../redux/actions/cards'
 
 class CardCard extends Component{
   handleEditClick=()=>{
-    console.log('You are trying to edit a card')
+    console.log('You are trying to edit a card',this.props.card)
     this.props.handleEditForm(this.props.card)
   }
   handleDeleteClick=()=>{
@@ -19,7 +19,7 @@ class CardCard extends Component{
     }).then(resp => resp.json())
     .then(data => this.props.deleteCard(data))
   }
-  
+
   render(){
     console.log(this.props)
     return(

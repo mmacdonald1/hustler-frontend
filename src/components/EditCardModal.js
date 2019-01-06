@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {createCard} from '../redux/actions/cards'
+import {editCard} from '../redux/actions/cards'
 
-class CreateCardModal extends Component{
+class EditCardModal extends Component{
   constructor() {
       super();
       this.state = {
@@ -16,12 +16,13 @@ class CreateCardModal extends Component{
     let {name, value} = e.target
     this.setState({[name]:value})
   }
-  handleCreateCardSubmit = (e) => {
+
+  handleEditCardSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
 
-    fetch(`http://localhost:3000/cards`, {
-      method:"POST",
+    fetch(`http://localhost:3000/cards/${this.props.currentCard.id}`, {
+      method:"PATCH",
       headers:{
         "Content-type": "application/json",
         "Accept": "application/json"
@@ -32,23 +33,21 @@ class CreateCardModal extends Component{
         deck_id: this.props.deckId
       })
     }).then(resp => resp.json())
-    .then(data => {
+    .then(data =>{
       console.log(data)
-      this.props.createCard(data.card)
-      this.props.handleCardModalClose()
+      this.props.editCard(data.card)
+      this.props.handleEditFormClose()
     })
   }
-
 
   render(){
     console.log(this.props)
     return(
-
-      <Modal show={this.props.show} onHide={this.props.handleCardModalClose}>
+      <Modal show={this.props.editShow} onHide={this.props.handleEditFormClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create a Card</Modal.Title>
+          <Modal.Title>Edit a Card</Modal.Title>
         </Modal.Header>
-        <form onSubmit={this.handleCreateCardSubmit}>
+        <form onSubmit={(e)=>this.handleEditCardSubmit(e)}>
           <Modal.Body>
           <FormGroup>
             <ControlLabel>Card Title</ControlLabel>
@@ -80,14 +79,13 @@ class CreateCardModal extends Component{
           </Modal.Footer>
         </form>
       </Modal>
-
       )
     }
   }
 const mapDispatchToProps= dispatch =>{
   return({
-    createCard: (card) => dispatch(createCard(card))
+    editCard: (card) => dispatch(editCard(card))
   })
 }
 
-export default connect(null, mapDispatchToProps)(CreateCardModal)
+export default connect(null, mapDispatchToProps)(EditCardModal)

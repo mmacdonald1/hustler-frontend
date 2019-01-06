@@ -1,12 +1,10 @@
 import {setDecks} from './decks'
 
-export const getUser = () => {
-  let token = localStorage.getItem('token')
-  //see if there is a token send it to the backend
-  console.log("component did mount")
-  if(token){
+export const getUser = (token) => {
+
     console.log("in if")
-    return (dispatch) => {fetch('http://localhost:3000/profile',{
+    return (dispatch) => {
+      fetch('http://localhost:3000/profile',{
       method:"GET",
       headers:{
         "Authentication" : `Bearer ${token}`
@@ -17,8 +15,8 @@ export const getUser = () => {
       dispatch(setDecks(data.user.decks))
       dispatch(setUser(data.user))
     })
+
   }
-}
 }
 
 
