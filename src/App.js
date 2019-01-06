@@ -8,31 +8,14 @@ import DeckPage from './containers/DeckPage'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import {connect} from 'react-redux';
-import {setUser} from './redux/actions/users';
-import {setDecks} from './redux/actions/decks';
+import {getUser} from './redux/actions/users';
+
 
 class App extends Component {
 
   componentDidMount(){
-    let token = localStorage.getItem('token')
-    //see if there is a token send it to the backend
-    console.log("component did mount")
-    if(token){
-      console.log("in if")
-      fetch('http://localhost:3000/profile',{
-        method:"GET",
-        headers:{
-          "Authentication" : `Bearer ${token}`
-        }
-      }).then(resp => resp.json())
-      .then(data => {
-        console.log(data, data.user, data.user.decks)
-        this.props.setDecks(data.user.decks)
-        this.props.setUser(data.user)
-      })
-    }
+        this.props.getUser()
   }
-
 
   render() {
     console.log("!!!", typeof(this.props.currentUser))
@@ -80,8 +63,7 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps= dispatch => {
   return({
-    setUser: (user) => dispatch(setUser(user)),
-    setDecks: (decks) => dispatch(setDecks(decks))
+    getUser: (user) => dispatch(getUser(user)),
   })
 }
 
