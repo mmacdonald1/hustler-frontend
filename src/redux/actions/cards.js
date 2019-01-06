@@ -21,6 +21,21 @@ export const editCard = (card) =>{
   }
 }
 
+export const deleteCardFetch = (id) =>{
+  console.log('You are trying to delete a card')
+  let token = localStorage.getItem('token')
+  return (dispatch)=>{
+    fetch(`http://localhost:3000/cards/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Authentication" : `Bearer ${token}`
+      }
+    }).then(resp => resp.json())
+    .then(data => dispatch(deleteCard(data)))
+  }
+  }
+
+
 export const deleteCard = (card) =>{
   console.log("Action delete card")
   return({
