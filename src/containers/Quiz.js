@@ -12,8 +12,8 @@ class Quiz extends Component{
   handleNewCard=()=>{
     let newCurrentIndex = this.state.currentIndex
     newCurrentIndex++
-    console.log("CHANGING CARD", newCurrentIndex, newCurrentIndex <= this.props.cards.length )
-    if(newCurrentIndex <= this.props.cards.length){
+    console.log("CHANGING CARD", newCurrentIndex, this.props.cards.length )
+    if(newCurrentIndex < this.props.cards.length){
       this.setState({
         currentIndex:newCurrentIndex,
         currentCard: this.props.cards[newCurrentIndex]
