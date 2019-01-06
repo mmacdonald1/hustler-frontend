@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-import {editCard} from '../redux/actions/cards'
+import {editCardFetch} from '../redux/actions/cards'
 
 class EditCardModal extends Component{
   constructor() {
@@ -20,24 +20,8 @@ class EditCardModal extends Component{
   handleEditCardSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-
-    fetch(`http://localhost:3000/cards/${this.props.currentCard.id}`, {
-      method:"PATCH",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        title: this.state.title,
-        content: this.state.content,
-        deck_id: this.props.deckId
-      })
-    }).then(resp => resp.json())
-    .then(data =>{
-      console.log(data)
-      this.props.editCard(data.card)
-      this.props.handleEditFormClose()
-    })
+    this.props.editCardFetch(this.props.currentCard.id,this.state.title,this.state.content,this.props.deckId)
+    this.props.handleEditFormClose()
   }
 
   render(){
@@ -84,7 +68,7 @@ class EditCardModal extends Component{
   }
 const mapDispatchToProps= dispatch =>{
   return({
-    editCard: (card) => dispatch(editCard(card))
+    editCardFetch: (cardId, title ,content, deckId) => dispatch(editCardFetch(cardId, title ,content, deckId))
   })
 }
 

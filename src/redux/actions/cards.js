@@ -34,6 +34,26 @@ export const createCard = (card) =>{
     card
   }
 }
+export const editCardFetch = (cardId, title ,content, deckId) =>{
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/cards/${cardId}`, {
+      method:"PATCH",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        deck_id: deckId
+      })
+    }).then(resp => resp.json())
+    .then(data =>{
+      console.log(data)
+      dispatch(editCard(data.card))
+    })
+  }
+}
 
 export const editCard = (card) =>{
   console.log("Action edit card", card)
