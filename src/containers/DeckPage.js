@@ -4,7 +4,7 @@ import CardCard from '../components/CardCard'
 import CreateCardModal from '../components/CreateCardModal'
 import EditCardModal from  '../components/EditCardModal'
 import {connect} from 'react-redux';
-import {setCards} from '../redux/actions/cards'
+import {setCardsFetch} from '../redux/actions/cards'
 
 class DeckPage extends Component{
   constructor() {
@@ -32,17 +32,7 @@ class DeckPage extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/decks/${this.props.deck.id}/cards`,{
-      method:"GET",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      }
-    }).then(resp => resp.json())
-    .then(data => {
-      console.log(data, this.props)
-      this.props.setCards(data.cards)
-    })
+    this.props.setCardsFetch(this.props.deck.id)
   }
 
   render(){
@@ -53,6 +43,9 @@ class DeckPage extends Component{
           <h1>{this.props.deck.name}</h1>
           <p>
             <Button bsStyle="primary" onClick={this.handleCardModalShow}>Create a Card</Button>
+          </p>
+          <p>
+            <Button bsStyle="primary"> Take a Quiz </Button>
           </p>
         </Jumbotron>
         <div>
@@ -74,7 +67,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch =>{
   return({
-    setCards: (cards)=> dispatch(setCards(cards))
+    setCardsFetch: (deckId)=> dispatch(setCardsFetch(deckId))
   })
 }
 

@@ -1,3 +1,19 @@
+export const setCardsFetch = (deckId) =>{
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/decks/${deckId}/cards`,{
+      method:"GET",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      }
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      dispatch(setCards(data.cards))
+    })
+  }
+}
+
 export const setCards = (cards) => {
   console.log("Action set cards", cards)
   return{
