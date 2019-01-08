@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import {editCard} from '../redux/actions/cards'
-=======
 import {editCardFetch} from '../redux/actions/cards'
->>>>>>> quiz-feature
+
 
 class EditCardModal extends Component{
   constructor() {
@@ -72,11 +69,7 @@ class EditCardModal extends Component{
   }
 const mapDispatchToProps= dispatch =>{
   return({
-<<<<<<< HEAD
-    editCard: (card) => dispatch(editCard(card))
-=======
     editCardFetch: (cardId, title ,content, deckId) => dispatch(editCardFetch(cardId, title ,content, deckId))
->>>>>>> quiz-feature
   })
 }
 

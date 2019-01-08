@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import {editDeck} from '../redux/actions/decks'
-=======
 import {editDeckFetch} from '../redux/actions/decks'
->>>>>>> quiz-feature
+
 
 class EditDeckModal extends Component{
   constructor() {
@@ -64,11 +61,7 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-<<<<<<< HEAD
-    editDeck: (deck) => dispatch(editDeck(deck))
-=======
     editDeckFetch: (deckId, deckName, user_id) => dispatch(editDeckFetch(deckId, deckName, user_id))
->>>>>>> quiz-feature
   })
 }
 

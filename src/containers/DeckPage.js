@@ -3,10 +3,7 @@ import {Jumbotron, Button} from 'react-bootstrap'
 import CardCard from '../components/CardCard'
 import CreateCardModal from '../components/CreateCardModal'
 import EditCardModal from  '../components/EditCardModal'
-<<<<<<< HEAD
-=======
 import {Link} from 'react-router-dom'
->>>>>>> quiz-feature
 import {connect} from 'react-redux';
 import {setCardsFetch} from '../redux/actions/cards'
 

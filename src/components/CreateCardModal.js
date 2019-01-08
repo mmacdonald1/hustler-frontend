@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import {createCard} from '../redux/actions/cards'
-=======
 import {createCardFetch} from '../redux/actions/cards'
->>>>>>> quiz-feature
+
 
 class CreateCardModal extends Component{
   constructor() {

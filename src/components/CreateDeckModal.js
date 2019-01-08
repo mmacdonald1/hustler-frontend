@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import {createDeck} from '../redux/actions/decks'
-=======
 import {createDeckFetch} from '../redux/actions/decks'
->>>>>>> quiz-feature
+
 
 class CreateDeckModal extends Component{
   constructor() {
