@@ -10,7 +10,7 @@ const MainNav = (props) =>{
     <Navbar inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#brand">Hustler</a>
+          <a href="/">Hustler</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
