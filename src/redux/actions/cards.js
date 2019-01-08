@@ -1,3 +1,19 @@
+export const setCardsFetch = (deckId) =>{
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/decks/${deckId}/cards`,{
+      method:"GET",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      }
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      dispatch(setCards(data.cards))
+    })
+  }
+}
+
 export const setCards = (cards) => {
   console.log("Action set cards", cards)
   return{
@@ -5,11 +21,53 @@ export const setCards = (cards) => {
     cards
   }
 }
+
+export const createCardFetch = (title, content, deckId) =>{
+  return (dispatch) => {
+    fetch(`http://localhost:3000/cards`, {
+      method:"POST",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        deck_id: deckId
+      })
+    }).then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+      dispatch(createCard(data.card))
+    })
+  }
+}
+
 export const createCard = (card) =>{
   console.log("Action create card")
   return{
     type:"CREATE_CARD",
     card
+  }
+}
+export const editCardFetch = (cardId, title ,content, deckId) =>{
+  return (dispatch) =>{
+    fetch(`http://localhost:3000/cards/${cardId}`, {
+      method:"PATCH",
+      headers:{
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        deck_id: deckId
+      })
+    }).then(resp => resp.json())
+    .then(data =>{
+      console.log(data)
+      dispatch(editCard(data.card))
+    })
   }
 }
 
@@ -20,6 +78,21 @@ export const editCard = (card) =>{
     card
   }
 }
+
+export const deleteCardFetch = (id) =>{
+  console.log('You are trying to delete a card')
+  let token = localStorage.getItem('token')
+  return (dispatch)=>{
+    fetch(`http://localhost:3000/cards/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Authentication" : `Bearer ${token}`
+      }
+    }).then(resp => resp.json())
+    .then(data => dispatch(deleteCard(data)))
+  }
+  }
+
 
 export const deleteCard = (card) =>{
   console.log("Action delete card")

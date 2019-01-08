@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import {createCard} from '../redux/actions/cards'
+=======
+import {createCardFetch} from '../redux/actions/cards'
+>>>>>>> quiz-feature
 
 class CreateCardModal extends Component{
   constructor() {
@@ -19,24 +23,8 @@ class CreateCardModal extends Component{
   handleCreateCardSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-
-    fetch(`http://localhost:3000/cards`, {
-      method:"POST",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        title: this.state.title,
-        content: this.state.content,
-        deck_id: this.props.deckId
-      })
-    }).then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-      this.props.createCard(data.card)
-      this.props.handleCardModalClose()
-    })
+    this.props.createCardFetch(this.state.title,this.state.content,this.props.deckId)
+    this.props.handleCardModalClose()
   }
 
 
@@ -86,7 +74,7 @@ class CreateCardModal extends Component{
   }
 const mapDispatchToProps= dispatch =>{
   return({
-    createCard: (card) => dispatch(createCard(card))
+    createCardFetch: (title,content,deck_id) => dispatch(createCardFetch(title,content,deck_id))
   })
 }
 

@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import {createDeck} from '../redux/actions/decks'
+=======
+import {createDeckFetch} from '../redux/actions/decks'
+>>>>>>> quiz-feature
 
 class CreateDeckModal extends Component{
   constructor() {
@@ -18,23 +22,8 @@ class CreateDeckModal extends Component{
   handleCreateDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
-
-    fetch('http://localhost:3000/decks', {
-      method:"POST",
-      headers:{
-        "Content-type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        user_id: this.props.id
-      })
-    }).then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-      this.props.createDeck(data.deck)
-      this.props.handleClose()
-    })
+    this.props.createDeckFetch(this.state.name,this.props.id)
+    this.props.handleClose()
   }
 
 
@@ -76,7 +65,7 @@ const mapStateToProps= state =>{
 }
 const mapDispatchToProps= dispatch =>{
   return({
-    createDeck: (deck) => dispatch(createDeck(deck))
+    createDeckFetch: (deckName, user_id) => dispatch(createDeckFetch(deckName, user_id))
   })
 }
 

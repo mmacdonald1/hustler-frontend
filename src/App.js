@@ -5,11 +5,12 @@ import NotFound from './components/NotFound'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import DeckPage from './containers/DeckPage'
+import Quiz from './containers/Quiz'
 import './App.css';
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import {connect} from 'react-redux';
-import {setUser} from './redux/actions/users';
-import {setDecks} from './redux/actions/decks';
+import {getUser} from './redux/actions/users';
+
 
 class App extends Component {
 
@@ -18,21 +19,9 @@ class App extends Component {
     //see if there is a token send it to the backend
     console.log("component did mount")
     if(token){
-      console.log("in if")
-      fetch('http://localhost:3000/profile',{
-        method:"GET",
-        headers:{
-          "Authentication" : `Bearer ${token}`
-        }
-      }).then(resp => resp.json())
-      .then(data => {
-        console.log(data, data.user, data.user.decks)
-        this.props.setDecks(data.user.decks)
-        this.props.setUser(data.user)
-      })
+    this.props.getUser(token)
     }
   }
-
 
   render() {
     console.log("!!!", typeof(this.props.currentUser))
@@ -63,6 +52,11 @@ class App extends Component {
                 <Login />
               }
               />
+              <Route exact path="/quiz" render={()=>this.props.currentUser.username?
+                <Quiz /> :
+                <Redirect to='/profile'/>
+              }
+              />
               <Route component={NotFound} />
             </Switch>
           </Fragment>
@@ -80,8 +74,7 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps= dispatch => {
   return({
-    setUser: (user) => dispatch(setUser(user)),
-    setDecks: (decks) => dispatch(setDecks(decks))
+    getUser: (token) => {dispatch(getUser(token))}
   })
 }
 
