@@ -7,24 +7,28 @@ class QuizCard extends Component{
   render(){
     console.log("LOOK AT ME",this.props.cards)
     return(
-      <div>
+      <div className="quiz-card">
       {this.props.card?(
         <div>
           {this.props.clicked? (
             <Well>
               <h1 className="back-card-title">{this.props.card.title}</h1>
               <h2>{this.props.card.content}</h2>
-              <Button bsStyle="primary" onClick={this.props.handleAgain}> Again </Button>
-              <Button bsStyle="primary" onClick={this.props.handleGood}> Good </Button>
-              <Button bsStyle="primary" onClick={this.props.handleEasy}> Easy </Button>
-              <Button bsStyle="primary" onClick={this.props.handleNewCard}>Next Card</Button>
+              <div className="quiz-side">
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleAgain}> Again </Button>
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleGood}> Good </Button>
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleEasy}> Easy </Button>
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleNewCard}>Next Card</Button>
+              </div>
             </Well>
           )
             : (
             <Well>
               <h1>{this.props.card.title}</h1>
-              <Button bsStyle="primary" onClick={this.props.handleCardClick}> Show Answer </Button>
-              <Button bsStyle="primary" onClick={this.props.handleNewCard}>Next Card</Button>
+              <div className="quiz-side">
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleCardClick}> Show Answer </Button>
+                <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleNewCard}>Next Card</Button>
+              </div>
             </Well>
             )}
         </div>

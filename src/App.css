@@ -70,6 +70,37 @@
   display: flex;
   justify-content: center;
 }
+.home-text{
+  margin-top: 20px;
+  padding-bottom: 50px;
+}
+ .home-container{
+  background-image: url("https://images.pexels.com/photos/988873/pexels-photo-988873.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  height:1000px;
+  padding: 20px;
+  text-align: center;
+}
+.signup-form{
+  margin: 20px;
+  padding: 10px 30px 30px 30px;
+}
+.login-form{
+  margin: 30px;
+}
+.well{
+  height:400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-side{
+  display: flex;
+  flex-direction: row;
+}
+.quiz-buttons{
+  margin:100px 5px 10px 5px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

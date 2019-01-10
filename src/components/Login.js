@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react'
-import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
+import React, {Component} from 'react'
+import {FormGroup, ControlLabel, FormControl, Button, Well} from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {loginUser} from '../redux/actions/users'
 
@@ -23,41 +23,46 @@ class Login extends Component {
 
   render(){
     return(
-      <Fragment>
-        <form  onSubmit={(e) => this.handleLoginSubmit(e)} >
-          <FormGroup
-             controlId="formBasicText"
-           >
-             <ControlLabel>Username</ControlLabel>
-             <FormControl
-               name="username"
-               type="text"
-               value={this.state.username}
-               placeholder="Enter username"
-               onChange={this.handleChange}
-             />
-             <FormControl.Feedback />
-           </FormGroup>
+      <div className="home-container">
+        <div className="login-form">
+          <Well>
+            <form onSubmit={(e) => this.handleLoginSubmit(e)} >
+              <h2 className="decks-title">Login</h2>
+              <FormGroup
+                 controlId="formBasicText"
+               >
+                 <ControlLabel>Username</ControlLabel>
+                 <FormControl
+                   name="username"
+                   type="text"
+                   value={this.state.username}
+                   placeholder="Enter username"
+                   onChange={this.handleChange}
+                 />
+                 <FormControl.Feedback />
+               </FormGroup>
 
-           <FormGroup
-              controlId="formBasicText"
-            >
-              <ControlLabel>Password</ControlLabel>
-              <FormControl
-                name="password"
-                type="text"
-                value={this.state.password}
-                placeholder="Enter password"
-                onChange={this.handleChange}
-              />
-              <FormControl.Feedback />
-            </FormGroup>
+               <FormGroup
+                  controlId="formBasicText"
+                >
+                  <ControlLabel>Password</ControlLabel>
+                  <FormControl
+                    name="password"
+                    type="text"
+                    value={this.state.password}
+                    placeholder="Enter password"
+                    onChange={this.handleChange}
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
 
 
-          <Button type="submit">Submit</Button>
+              <Button type="submit">Submit</Button>
 
-        </form>
-      </Fragment>
+            </form>
+          </Well>
+        </div>
+      </div>
     )
   }
 }

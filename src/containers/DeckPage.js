@@ -51,7 +51,7 @@ class DeckPage extends Component{
             </Link>
           </p>
         </Jumbotron>
-
+        <h1 className="decks-title"> My Cards </h1>
         <div className="card-table-container">
           <Table className="card-table" responsive>
           <thead>
