@@ -15,7 +15,7 @@ class DeckCard extends Component{
   }
   render(){
     return(
-      <Panel>
+      <Panel className="deck-card">
         <Panel.Body>
           <Link to={`/decks/${this.props.deck.id}`}>{this.props.deck.name}</Link>
         </Panel.Body>

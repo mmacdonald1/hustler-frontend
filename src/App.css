@@ -30,6 +30,10 @@
   justify-content: space-between;
 }
 
+.nav-container{
+  margin-bottom: 0px;
+}
+
 .jumbotron{
   display: flex;
   flex-direction: column;
@@ -40,7 +44,32 @@
   padding-bottom: 15px;
   border-bottom: 1px solid #D3D3D3;
 }
-
+.decks-title{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.decks-container{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.deck-card{
+  width:20em;
+  margin:10px;
+}
+.card-table{
+  width: 40em;
+}
+.table-responsive{
+  border:none;
+}
+.buttons-column{
+  width:30px;
+}
+.card-table-container{
+  display: flex;
+  justify-content: center;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

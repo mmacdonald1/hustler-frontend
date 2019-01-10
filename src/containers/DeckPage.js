@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Jumbotron, Button} from 'react-bootstrap'
+import {Jumbotron, Button, Table} from 'react-bootstrap'
 import CardCard from '../components/CardCard'
 import CreateCardModal from '../components/CreateCardModal'
 import EditCardModal from  '../components/EditCardModal'
@@ -51,9 +51,22 @@ class DeckPage extends Component{
             </Link>
           </p>
         </Jumbotron>
-        <div>
-          {this.props.cards[0] ? this.props.cards.map(card => <CardCard key={card.id} card={card} handleEditForm = {this.handleEditForm} />) : null}
+
+        <div className="card-table-container">
+          <Table className="card-table" responsive>
+          <thead>
+           <tr>
+             <th>Title</th>
+             <th>Content</th>
+             <th> </th>
+           </tr>
+          </thead>
+          <tbody>
+            {this.props.cards[0] ? this.props.cards.map(card => <CardCard key={card.id} card={card} handleEditForm = {this.handleEditForm} />) : null}
+          </tbody>
+          </Table>
         </div>
+
         <CreateCardModal show={this.state.show} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleCardModalClose ={this.handleCardModalClose}/>
         <EditCardModal editShow={this.state.editShow} deckId={this.props.deck.id} currentCard={this.state.currentCard} handleEditFormClose={this.handleEditFormClose} />
 

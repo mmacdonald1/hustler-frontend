@@ -7,7 +7,7 @@ import {logoutUser} from '../redux/actions/users'
 const MainNav = (props) =>{
   console.log(props)
   return(
-    <Navbar inverse collapseOnSelect>
+    <Navbar className="nav-container" inverse collapseOnSelect>
       <Navbar.Header>
         <Navbar.Brand>
           <a href="/">Hustler</a>

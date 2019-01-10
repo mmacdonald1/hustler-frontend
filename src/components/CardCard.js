@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Panel, ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
+import {ButtonToolbar, ButtonGroup, Button, Glyphicon} from 'react-bootstrap'
 import {connect} from 'react-redux';
 import {deleteCardFetch} from '../redux/actions/cards'
 
@@ -15,22 +15,23 @@ class CardCard extends Component{
   render(){
     console.log(this.props)
     return(
-      <Panel>
-        <Panel.Body>
-        <h3>{this.props.card.title}</h3>
-        <p>{this.props.card.content}</p>
-        </Panel.Body>
-        <ButtonToolbar>
-          <ButtonGroup>
-            <Button bsSize="xsmall" onClick={this.handleEditClick}>
-              <Glyphicon glyph="pencil" />
-            </Button>
-            <Button bsSize="xsmall" onClick={this.handleDeleteClick}>
-              <Glyphicon glyph="remove" />
-            </Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-      </Panel>
+
+        <tr>
+           <td>{this.props.card.title}</td>
+           <td>{this.props.card.content}</td>
+           <td className="buttons-column">
+             <ButtonToolbar>
+               <ButtonGroup>
+                 <Button bsSize="xsmall" onClick={this.handleEditClick}>
+                   <Glyphicon glyph="pencil" />
+                 </Button>
+                 <Button bsSize="xsmall" onClick={this.handleDeleteClick}>
+                   <Glyphicon glyph="remove" />
+                 </Button>
+               </ButtonGroup>
+             </ButtonToolbar>
+           </td>
+        </tr>
     )
   }
 }

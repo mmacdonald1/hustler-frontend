@@ -39,8 +39,10 @@ render(){
       <Fragment>
           <div>
             <UserJumbotron handleShow={this.handleShow}/>
+            <h1 className="decks-title">My Decks</h1>
+            <div className="decks-container">
             {currentUserDecks[0] ? currentUserDecks.map(deck => <DeckCard key={deck.id} deck={deck} handleEditForm={this.handleEditForm} />) : null}
-
+            </div>
             <CreateDeckModal show={this.state.show} currentDeck={this.state.currentDeck} handleClose={this.handleClose} />
             <EditDeckModal editShow={this.state.editShow} currentDeck={this.state.currentDeck} handleEditFormClose={this.handleEditFormClose} />
 
