@@ -87,7 +87,7 @@
 .login-form{
   margin: 30px;
 }
-.well{
+.quiz-card.well{
   height:400px;
   display: flex;
   flex-direction: column;

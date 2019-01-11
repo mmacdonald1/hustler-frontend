@@ -5,12 +5,11 @@ class QuizCard extends Component{
 
 
   render(){
-    console.log("LOOK AT ME",this.props.cards)
     return(
       <div>
       {this.props.card?(
         this.props.done?(
-          <Well>
+          <Well className="quiz-card">
             <h1>You are done!!!</h1>
             <div className="quiz-side">
               <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleMoreQuiz}> Take Quiz Again </Button>
@@ -20,7 +19,7 @@ class QuizCard extends Component{
         ):(
           <div>
             {this.props.clicked? (
-              <Well>
+              <Well className="quiz-card">
                 <h1 className="back-card-title">{this.props.card.title}</h1>
                 <h2>{this.props.card.content}</h2>
                 <div className="quiz-side">
@@ -32,7 +31,7 @@ class QuizCard extends Component{
               </Well>
             )
               : (
-              <Well>
+              <Well className="quiz-card">
                 <h1>{this.props.card.title}</h1>
                 <div className="quiz-side">
                   <Button className="quiz-buttons" bsStyle="primary" onClick={this.props.handleCardClick}> Show Answer </Button>
