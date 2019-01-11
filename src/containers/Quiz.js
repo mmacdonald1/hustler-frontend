@@ -8,7 +8,8 @@ class Quiz extends Component{
     currentIndex: 0,
     currentCard:this.props.cards[0],
     clicked: false,
-    cards: this.props.cards
+    cards: this.props.cards,
+    done:false
   }
 
   componentDidMount(){
@@ -70,17 +71,26 @@ class Quiz extends Component{
       })
     }else{
       this.setState({
-        currentIndex:0,
-        currentCard: this.props.cards[0],
-        clicked: false
+        done: true
       })
     }
+  }
+
+  handleMoreQuiz=()=>{
+    console.log("I want more", this.props.cards)
+    this.setState({
+      currentIndex:0,
+      currentCard: this.props.cards[0],
+      clicked: false,
+      cards: this.props.cards,
+      done: false
+    })
   }
 
   render(){
     return(
       <div>
-        <QuizCard card={this.state.currentCard} handleNewCard={this.handleNewCard} handleCardClick={this.handleCardClick} clicked={this.state.clicked} handleEasy={this.handleEasy} handleGood={this.handleGood} handleAgain={this.handleAgain} cards={this.state.cards}/>
+        <QuizCard card={this.state.currentCard} handleNewCard={this.handleNewCard} handleCardClick={this.handleCardClick} clicked={this.state.clicked} handleEasy={this.handleEasy} handleGood={this.handleGood} handleAgain={this.handleAgain} done={this.state.done} handleMoreQuiz={this.handleMoreQuiz}/>
       </div>
     )
   }
