@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FormGroup, ControlLabel, FormControl, Button, Well} from 'react-bootstrap'
+import {FormGroup, ControlLabel, FormControl, Button, Well, Alert} from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {signupUser} from '../redux/actions/users'
 
@@ -7,7 +7,8 @@ class Signup extends Component {
   state = {
     username: "",
     email: "",
-    password: ""
+    password: "",
+    error: null
   }
 
   handleChange = (e) => {
@@ -15,10 +16,32 @@ class Signup extends Component {
     this.setState({[name]:value})
   }
 
+  handleErrorMessage = () =>{
+    const reducer = (acc, cur) => {
+      if (!cur[1]) {
+        return [...acc, cur[0]];
+      } else {
+        return acc;
+      }
+    }
+    let ret = Object.entries(this.state.error).reduce(reducer, []);
+
+    return `Invalid ${ret.join(", ")}. Must be at least 1 character.`
+
+  }
+
   handleSignupSubmit = (e) =>{
     e.preventDefault()
     console.log('attempting to signup')
-    this.props.signupUser(this.state.username, this.state.email, this.state.password)
+    let errors = {username: this.state.username.length>0, email:this.state.email.length>0, password:this.state.password.length>0}
+    if(!Object.keys(errors).some(x => errors[x]=== false)){
+      this.setState({error:null})
+      this.props.signupUser(this.state.username, this.state.email, this.state.password)
+    }
+    else{
+      this.setState({error: errors})
+    }
+
   }
 
 
@@ -33,6 +56,7 @@ class Signup extends Component {
 
               <Well className="signup-form" >
                 <h2 className="decks-title">Signup</h2>
+                {this.state.error ? <Alert bsStyle="danger">{this.handleErrorMessage()}</Alert>: null}
                 <form onSubmit={(e) => this.handleSignupSubmit(e)} >
                   <FormGroup
                      controlId="formBasicText"
