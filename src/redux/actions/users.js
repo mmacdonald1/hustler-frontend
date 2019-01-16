@@ -31,10 +31,10 @@ export const loginUser = (username, password) =>{
       })
     }).then(resp => resp.json())
     .then(data => {
-      console.log('still attempting to login', data, data.user, data.user.decks)
       if(data.error){
-        alert('incorrect username or password')
+        alert('Incorrect username or password.')
       }else{
+        console.log('still attempting to login', data, data.user, data.user.decks)
         localStorage.setItem('token', data.token)
         dispatch(setDecks(data.user.decks))
         dispatch(setUser(data.user))
@@ -58,11 +58,10 @@ export const signupUser = (username, email, password) =>{
       })
     }).then(resp => resp.json())
     .then(data => {
-      console.log('still attempting to signup', data)
       if(data.error){
         alert(data.error)
       }else{
-        console.log(data)
+        console.log('still attempting to signup', data)
         localStorage.setItem('token', data.token)
         dispatch(createUser(data.user))
       }

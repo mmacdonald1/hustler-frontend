@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Modal, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
+import {Modal, Button, FormGroup, ControlLabel, FormControl, Alert} from 'react-bootstrap'
 import { connect } from 'react-redux';
 import {editDeckFetch} from '../redux/actions/decks'
 
@@ -8,7 +8,8 @@ class EditDeckModal extends Component{
   constructor() {
       super();
       this.state = {
-        name:""
+        name:"",
+        error:null
       };
   }
 
@@ -17,11 +18,31 @@ class EditDeckModal extends Component{
     this.setState({[name]:value})
   }
 
+  handleErrorMessage = () =>{
+    const reducer = (acc, cur) => {
+      if (!cur[1]) {
+        return [...acc, cur[0]];
+      } else {
+        return acc;
+      }
+    }
+    let ret = Object.entries(this.state.error).reduce(reducer, []);
+
+    return `Invalid ${ret.join(", ")}. Must be at least 1 character.`
+  }
+
   handleEditDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
-    this.props.editDeckFetch(this.props.currentDeck.id, this.state.name, this.props.id)
-    this.props.handleEditFormClose()
+    let errors = {name: this.state.name.length>0}
+    if(!Object.keys(errors).some(x => errors[x]=== false)){
+      this.setState({error:null})
+      this.props.editDeckFetch(this.props.currentDeck.id, this.state.name, this.props.id)
+      this.props.handleEditFormClose()
+    }
+    else{
+      this.setState({error: errors})
+    }
   }
 
   render(){
@@ -32,6 +53,7 @@ class EditDeckModal extends Component{
         <Modal.Header closeButton>
           <Modal.Title>Edit a Deck</Modal.Title>
         </Modal.Header>
+          {this.state.error ? <Alert bsStyle="danger">{this.handleErrorMessage()}</Alert>: null}
         <form onSubmit={this.handleEditDeckSubmit}>
           <Modal.Body>
               <FormGroup>

@@ -27,7 +27,6 @@ class Signup extends Component {
     let ret = Object.entries(this.state.error).reduce(reducer, []);
 
     return `Invalid ${ret.join(", ")}. Must be at least 1 character.`
-
   }
 
   handleSignupSubmit = (e) =>{
