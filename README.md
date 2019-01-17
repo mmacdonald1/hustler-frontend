@@ -2,7 +2,7 @@
 A notecard app that allows you to create decks of cards and quiz yourself on them. The quiz feature repeats cards based on your comfort level with each card.
 
 ## Live Demo
-Coming soon.
+https://hustler-frontend.herokuapp.com/
 
 ## Getting Started
 
