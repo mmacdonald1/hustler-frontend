@@ -1,4 +1,4 @@
-export default (state = {cards:[]}, action) => {
+export default (state = [], action) => {
   switch(action.type){
     case 'SET_CARDS':
       console.log("Set Cards Reducer", state, action)

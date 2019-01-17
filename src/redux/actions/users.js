@@ -3,7 +3,7 @@ import {setDecks} from './decks'
 export const getUser = (token) => {
     console.log("in if")
     return (dispatch) => {
-      fetch('http://localhost:3000/profile',{
+      fetch('https://hustler-backend.herokuapp.com/profile',{
       method:"GET",
       headers:{
         "Authentication" : `Bearer ${token}`
@@ -19,7 +19,7 @@ export const getUser = (token) => {
 
 export const loginUser = (username, password) =>{
   return (dispatch) => {
-    fetch('http://localhost:3000/login', {
+    fetch('https://hustler-backend.herokuapp.com/login', {
       method:"POST",
       headers:{
         "Content-type": "application/json",
@@ -45,7 +45,7 @@ export const loginUser = (username, password) =>{
 
 export const signupUser = (username, email, password) =>{
   return (dispatch) => {
-    fetch('http://localhost:3000/users', {
+    fetch('https://hustler-backend.herokuapp.com/users', {
       method:"POST",
       headers:{
         "Content-type": "application/json",

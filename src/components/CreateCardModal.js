@@ -32,6 +32,14 @@ class CreateCardModal extends Component{
     return `Invalid ${ret.join(", ")}. Must be at least 1 character.`
   }
 
+  handleResetForm = () =>{
+    this.setState({
+      title:"",
+      content:"",
+      error:null
+    })
+  }
+
   handleCreateCardSubmit = (e) => {
     e.preventDefault()
     let errors = {title: this.state.title.length>0, content:this.state.content.length>0}
@@ -39,6 +47,7 @@ class CreateCardModal extends Component{
       this.setState({error:null})
       this.props.createCardFetch(this.state.title,this.state.content,this.props.deckId)
       this.props.handleCardModalClose()
+      this.handleResetForm()
     }
     else{
       this.setState({error: errors})

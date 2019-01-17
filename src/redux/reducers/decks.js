@@ -1,4 +1,4 @@
-export default (state = {currentDecks:[]}, action) => {
+export default (state = [], action) => {
   switch(action.type){
     case 'SET_DECKS':
       console.log("Set Decks Reducer", state, action)

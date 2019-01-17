@@ -8,7 +8,7 @@ export const setDecks = (decks) => {
 
 export const createDeckFetch = (deckName,user_id) =>{
   return (dispatch) => {
-    fetch('http://localhost:3000/decks', {
+    fetch('https://hustler-backend.herokuapp.com/decks', {
       method:"POST",
       headers:{
         "Content-type": "application/json",
@@ -36,7 +36,7 @@ export const createDeck = (deck) =>{
 
 export const editDeckFetch = (deckId, deckName, user_id) =>{
   return (dispatch) => {
-    fetch(`http://localhost:3000/decks/${deckId}`, {
+    fetch(`https://hustler-backend.herokuapp.com/decks/${deckId}`, {
       method:"PATCH",
       headers:{
         "Content-type": "application/json",
@@ -65,7 +65,7 @@ export const editDeck = (deck) =>{
 export const deleteDeckFetch = (id) =>{
   let token = localStorage.getItem('token')
   return (dispatch) => {
-    fetch(`http://localhost:3000/decks/${id}`,{
+    fetch(`https://hustler-backend.herokuapp.com/decks/${id}`,{
       method:"DELETE",
       headers:{
         "Authentication" : `Bearer ${token}`

@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("!!!", typeof(this.props.currentUser))
+    console.log("!!!", this.props.currentUser)
     console.log(!!this.props.currentUser, Object.keys(this.props.currentUser))
     return (
       <BrowserRouter>

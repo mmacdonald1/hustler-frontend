@@ -1,6 +1,6 @@
 export const setCardsFetch = (deckId) =>{
   return (dispatch) =>{
-    fetch(`http://localhost:3000/decks/${deckId}/cards`,{
+    fetch(`https://hustler-backend.herokuapp.com/decks/${deckId}/cards`,{
       method:"GET",
       headers:{
         "Content-type": "application/json",
@@ -24,7 +24,7 @@ export const setCards = (cards) => {
 
 export const createCardFetch = (title, content, deckId) =>{
   return (dispatch) => {
-    fetch(`http://localhost:3000/cards`, {
+    fetch(`https://hustler-backend.herokuapp.com/cards`, {
       method:"POST",
       headers:{
         "Content-type": "application/json",
@@ -52,7 +52,7 @@ export const createCard = (card) =>{
 }
 export const editCardFetch = (cardId, title ,content, deckId) =>{
   return (dispatch) =>{
-    fetch(`http://localhost:3000/cards/${cardId}`, {
+    fetch(`https://hustler-backend.herokuapp.com/cards/${cardId}`, {
       method:"PATCH",
       headers:{
         "Content-type": "application/json",
@@ -83,7 +83,7 @@ export const deleteCardFetch = (id) =>{
   console.log('You are trying to delete a card')
   let token = localStorage.getItem('token')
   return (dispatch)=>{
-    fetch(`http://localhost:3000/cards/${id}`,{
+    fetch(`https://hustler-backend.herokuapp.com/cards/${id}`,{
       method:"DELETE",
       headers:{
         "Authentication" : `Bearer ${token}`

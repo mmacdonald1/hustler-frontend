@@ -31,6 +31,13 @@ class CreateDeckModal extends Component{
     return `Invalid ${ret.join(", ")}. Must be at least 1 character.`
   }
 
+  handleResetForm = () =>{
+    this.setState({
+      name:"",
+      error:null
+    })
+  }
+
   handleCreateDeckSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.name)
@@ -39,6 +46,7 @@ class CreateDeckModal extends Component{
       this.setState({error:null})
       this.props.createDeckFetch(this.state.name,this.props.id)
       this.props.handleClose()
+      this.handleResetForm()
     }
     else{
       this.setState({error: errors})
